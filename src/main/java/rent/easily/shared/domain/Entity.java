@@ -2,10 +2,11 @@ package rent.easily.shared.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import rent.easily.shared.domain.exception.BusinessException;
 
 public abstract class Entity {
     
-    private List<Exception> errors;
+    private List<BusinessException> errors;
 
     public Entity() {
         errors = new ArrayList<>();
@@ -15,11 +16,11 @@ public abstract class Entity {
         return this.errors.size() == 0;
     }
 
-    public List<Exception> getErrors() {
+    public List<BusinessException> getErrors() {
         return this.errors;
     }
 
-    public void addError(Exception exception) {
+    public void addError(BusinessException exception) {
         this.errors.add(exception);
     }
 
