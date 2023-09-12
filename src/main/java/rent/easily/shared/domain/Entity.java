@@ -20,8 +20,8 @@ public abstract class Entity {
         return this.errors;
     }
 
-    public void addError(BusinessException exception) {
-        this.errors.add(exception);
+    public void addError(String message, String trace) {
+        this.errors.add(new BusinessException(message, trace));
     }
 
     public abstract void validate();
