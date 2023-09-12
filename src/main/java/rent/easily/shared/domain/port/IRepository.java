@@ -6,4 +6,5 @@ public interface IRepository<T> {
     void save(T entity);
     T findById(Long id);
     List<T> findAll();
+    T editById(Long id);
 }
