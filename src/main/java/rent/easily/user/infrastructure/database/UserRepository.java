@@ -25,10 +25,8 @@ public class UserRepository extends Repository<User, UserModel> {
     public List<User> convertToDomainList(List<UserModel> model) {
         List<User> users = new ArrayList<>();
         for(UserModel mdl: model) {
-            users.add(new User(mdl.getFullName(), mdl.getCPF(), mdl.getIncome(), mdl.getTypeId()));
+            users.add(new User(mdl.getId(), mdl.getFullName(), mdl.getCPF(), mdl.getIncome(), mdl.getTypeId()));
         }
         return users;
     }
-
-    
 }
