@@ -4,16 +4,17 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.Setter;
-import rent.easily.shared.infrastructure.Model;
 
 @Entity
 @Table(name = "registertype")
 @Getter @Setter
-public class RegisterTypeModel extends Model {
+public class RegisterTypeModel {
     
+    @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "rgt_code")
     private Long id;
