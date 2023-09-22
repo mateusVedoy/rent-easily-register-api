@@ -29,12 +29,12 @@ public class User extends Entity{
         this.validate();
     }
 
-    public User(Long id, String fullName, String CPF, double income, RegisterType type) {
+    public User(Long id, String fullName, String CPF, double income, Long typeId) {
         this.id = id;
         this.fullName = fullName;
         this.CPF = CPF;
         this.income = income;
-        this.type = type;
+        this.type = setType(typeId);
         this.validate();
     }
     
