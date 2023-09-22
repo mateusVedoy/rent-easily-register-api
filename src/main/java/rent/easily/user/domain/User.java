@@ -1,7 +1,10 @@
 package rent.easily.user.domain;
 
+import lombok.Getter;
+import lombok.Setter;
 import rent.easily.shared.domain.Entity;
 
+@Getter @Setter
 public class User extends Entity{
 
     private Long id;
@@ -15,6 +18,14 @@ public class User extends Entity{
         this.CPF = CPF;
         this.income = income;
         this.type = type;
+        this.validate();
+    }
+
+    public User(String fullName, String CPF, double income, Long typeId) {
+        this.fullName = fullName;
+        this.CPF = CPF;
+        this.income = income;
+        this.type  = setType(typeId);
         this.validate();
     }
 
@@ -49,9 +60,9 @@ public class User extends Entity{
 
     @Override
     public void validate() {
-        if(!isFullNameValid())
+        if(isFullNameInvalid())
             addError("User name is mandatory", "domain.User.fullName");
-        if(!isCPFValid())
+        if(isCPFInvalid())
             addError("User CPF is mandatory", "domain.User.CPF");
         if(!isIncomeValid())
             addError("User income must to be greater than zero", "domain.User.income");
@@ -59,11 +70,20 @@ public class User extends Entity{
             addError("User type must to be LESSEE or LESSOR", "domain.User.type");
     }
 
-    private boolean isFullNameValid() {
+    private boolean isFullNameInvalid() {
         return this.fullName.isEmpty() || this.fullName.isBlank();
     }
 
-    private boolean isCPFValid() {
+    private RegisterType setType(Long typeId) {
+        if(RegisterType.LESSEE.getValue() == typeId)
+            return RegisterType.LESSEE;
+        else if(RegisterType.LESSOR.getValue() == typeId)
+            return RegisterType.LESSOR;
+        else
+            return null;
+    }
+
+    private boolean isCPFInvalid() {
         return this.CPF.isEmpty() || this.CPF.isBlank();
     }
 
@@ -75,4 +95,10 @@ public class User extends Entity{
         return this.type != null;
     }
     
+    public String toString() {
+        return "FullName: "+this.getFullName()+
+        ", CPF: "+this.getCPF()+
+        ", Income: "+this.getIncome()+
+        ", type: "+this.getType();
+    }
 }
