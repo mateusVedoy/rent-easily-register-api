@@ -16,6 +16,8 @@ public abstract class Repository<T1, T2> implements PanacheRepository<T2>, IRepo
     @Override
     public T1 findPerId(Long id) {
         T2 model = findById(id);
+        if(isNull(model))
+            return null;
         return convertToDomainList(List.of(model)).get(0); //refact depois
     }
 
@@ -30,6 +32,10 @@ public abstract class Repository<T1, T2> implements PanacheRepository<T2>, IRepo
         deleteById(id);
         T2 model = convertToModel(entity);
         persist(model);
+    }
+
+    private boolean isNull(T2 object) {
+        return object == null;
     }
 
     protected abstract T2 convertToModel(T1 entity);
