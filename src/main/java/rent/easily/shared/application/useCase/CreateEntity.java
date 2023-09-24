@@ -4,6 +4,7 @@ import jakarta.enterprise.context.Dependent;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.response.ResponseError;
 import rent.easily.shared.application.response.ResponseSuccess;
+import rent.easily.shared.application.response.StatusMessage;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
 import rent.easily.shared.infrastructure.Repository;
@@ -21,11 +22,11 @@ public class CreateEntity<T1, T2, T3> {
         try {
             T2 entity = convertToDomain.convert(dto);
             repository.save(entity);
-            return new ResponseSuccess<>(200, "Entity created successfully.");
+            return new ResponseSuccess<>(201, StatusMessage.CREATED.getValue());
         } catch (ValidationError validationException) {
-            return new ResponseError(400, "Something went wrong. Consult errors.", validationException);
+            return new ResponseError(400, StatusMessage.ERROR.getValue(), validationException);
         } catch (Exception exception) {
-            return new ResponseError(400, "Something went wrong. Consult errors.", exception);
+            return new ResponseError(400, StatusMessage.ERROR.getValue(), exception);
         }
     }
 }
