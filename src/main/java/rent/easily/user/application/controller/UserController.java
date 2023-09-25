@@ -57,4 +57,6 @@ public class UserController {
         Long id = Long.parseLong(identifier);
         return getEntityById.execute(id, repository, convertToDomain, convertToDTO);
     }
+
+    //falta o editar por Id
 }

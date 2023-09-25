@@ -12,13 +12,10 @@ public class UserRepository extends Repository<User, UserModel> {
 
     @Override
     public UserModel convertToModel(User entity) {
-        UserModel model = new UserModel(entity.getFullName(), 
+        return new UserModel(entity.getFullName(), 
         entity.getCPF(), 
         entity.getIncome(),
         entity.getType().getValue());
-
-        System.out.println(model.toString());
-        return model;
     }
 
     @Override
