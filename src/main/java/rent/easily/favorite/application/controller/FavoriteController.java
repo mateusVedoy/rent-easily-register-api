@@ -10,6 +10,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.favorite.application.dto.FavoriteDTO;
+import rent.easily.favorite.application.useCase.GetFavoriteByAd;
 import rent.easily.favorite.domain.Favorite;
 import rent.easily.favorite.infrastructure.database.FavoriteModel;
 import rent.easily.favorite.infrastructure.database.FavoriteRepository;
@@ -18,8 +19,6 @@ import rent.easily.shared.application.useCase.CreateEntity;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
-import rent.easily.user.application.dto.UserDTO;
-import rent.easily.user.infrastructure.database.UserRepository;
 
 @Path("/favorite")
 @Transactional
@@ -37,6 +36,8 @@ public class FavoriteController {
     GetAllEntities<FavoriteDTO, Favorite, FavoriteModel> getAllEntities;
     @Inject
     GetEntityById<FavoriteDTO, Favorite, FavoriteModel> getEntityById;
+    @Inject
+    GetFavoriteByAd getFavoriteByAd;
 
     @POST
     @Path("/create")
@@ -46,10 +47,11 @@ public class FavoriteController {
     }
 
     @GET
-    @Path("/find/all")
+    @Path("/find/advertisement/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getAll() {
-        return getAllEntities.execute(repository, convertToDomain, convertToDTO);
+    public APIResponse getFavByAd(@PathParam("identifier") String identifier) {
+        Long id = Long.parseLong(identifier);
+        return getFavoriteByAd.execute(id);
     }
 
     @GET
