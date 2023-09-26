@@ -12,6 +12,7 @@ import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.response.ResponseError;
 import rent.easily.shared.application.response.ResponseSuccess;
 import rent.easily.shared.application.response.StatusMessage;
+import rent.easily.shared.application.service.BuildListService;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
 
@@ -21,30 +22,22 @@ public class GetFavoriteByAd {
     @Inject
     FavoriteRepository repository;
     @Inject
-    IConvert<FavoriteDTO, Favorite> convertToDomain;
-    @Inject
     IConvert<Favorite, FavoriteDTO> convertToDTO;
+    @Inject
+    BuildListService<Favorite, FavoriteDTO> buildList;
 
     public APIResponse execute(Long advertisementId) {
         try {
             List<Favorite> favorite = repository.getFavoritesByAd(advertisementId);
             if(isEmpty(favorite))
                 return new ResponseSuccess<>(200, StatusMessage.EMPTY_SUCCESS.getValue());
-            List<FavoriteDTO> dtos = buildList(favorite);
+            List<FavoriteDTO> dtos = buildList.process(favorite, convertToDTO);
             return new ResponseSuccess<>(200, StatusMessage.SUCCESS.getValue(), dtos);
         } catch (ValidationError validationError) {
             return new ResponseError(400, StatusMessage.ERROR.getValue(), validationError);
         }catch (Exception e) {
             return new ResponseError(400, StatusMessage.ERROR.getValue(), e);
         }
-    }
-
-    private List<FavoriteDTO> buildList(List<Favorite> list) throws ValidationError {
-        List<FavoriteDTO> dtos = new ArrayList<>();
-        for(Favorite favorite: list) {
-            dtos.add(convertToDTO.convert(favorite));
-        }
-        return dtos;
     }
 
     private boolean isEmpty(List<Favorite> list) {
