@@ -17,6 +17,12 @@ public class FavoriteRepository extends Repository<Favorite, FavoriteModel> {
         return convertToDomainList(models);
     }
 
+    public List<Favorite> getFavoritesByUser(Long userId) {
+        PanacheQuery<FavoriteModel> result = find("userId = ?1", userId);
+        List<FavoriteModel> models = result.list();
+        return convertToDomainList(models);
+    }
+
     @Override
     protected FavoriteModel convertToModel(Favorite entity) {
         return new FavoriteModel(entity.getAdvertisementId(), entity.getUserId(), entity.getDateTime());
