@@ -11,6 +11,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.favorite.application.dto.FavoriteDTO;
 import rent.easily.favorite.application.useCase.GetFavoriteByAd;
+import rent.easily.favorite.application.useCase.GetFavoriteByUser;
 import rent.easily.favorite.domain.Favorite;
 import rent.easily.favorite.infrastructure.database.FavoriteModel;
 import rent.easily.favorite.infrastructure.database.FavoriteRepository;
@@ -38,6 +39,8 @@ public class FavoriteController {
     GetEntityById<FavoriteDTO, Favorite, FavoriteModel> getEntityById;
     @Inject
     GetFavoriteByAd getFavoriteByAd;
+    @Inject
+    GetFavoriteByUser getFavoriteByUser;
 
     @POST
     @Path("/create")
@@ -52,6 +55,14 @@ public class FavoriteController {
     public APIResponse getFavByAd(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
         return getFavoriteByAd.execute(id);
+    }
+
+    @GET
+    @Path("/find/user/id/{identifier}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public APIResponse getFavByUser(@PathParam("identifier") String identifier) {
+        Long id = Long.parseLong(identifier);
+        return getFavoriteByUser.execute(id);
     }
 
     @GET
