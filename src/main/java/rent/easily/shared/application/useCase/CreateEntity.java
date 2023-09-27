@@ -7,6 +7,7 @@ import rent.easily.shared.application.response.ResponseSuccess;
 import rent.easily.shared.application.response.StatusMessage;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
+import rent.easily.shared.domain.port.ICriteria;
 import rent.easily.shared.infrastructure.Repository;
 
 // t1 - dto, t2 - entity, t3 - model
@@ -18,9 +19,11 @@ public class CreateEntity<T1, T2, T3> {
         T1 dto, 
         Repository<T2, T3> repository,
         IConvert<T1, T2> convertToDomain,
-        IConvert<T2, T1> convertToDTO) {
+        IConvert<T2, T1> convertToDTO,
+        ICriteria<T2> specification) {
         try {
             T2 entity = convertToDomain.convert(dto);
+            specification.validate(entity);
             repository.save(entity);
             return new ResponseSuccess<>(201, StatusMessage.CREATED.getValue());
         } catch (ValidationError validationException) {
