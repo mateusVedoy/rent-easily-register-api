@@ -10,13 +10,13 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.favorite.application.dto.FavoriteDTO;
+import rent.easily.favorite.application.useCase.CreateFavorite;
 import rent.easily.favorite.application.useCase.GetFavoriteByAd;
 import rent.easily.favorite.application.useCase.GetFavoriteByUser;
 import rent.easily.favorite.domain.Favorite;
 import rent.easily.favorite.infrastructure.database.FavoriteModel;
 import rent.easily.favorite.infrastructure.database.FavoriteRepository;
 import rent.easily.shared.application.response.APIResponse;
-import rent.easily.shared.application.useCase.CreateEntity;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
@@ -25,8 +25,6 @@ import rent.easily.shared.domain.port.IConvert;
 @Transactional
 public class FavoriteController {
 
-    @Inject
-    CreateEntity<FavoriteDTO, Favorite, FavoriteModel> createEntity;
     @Inject
     FavoriteRepository repository;
     @Inject
@@ -41,12 +39,14 @@ public class FavoriteController {
     GetFavoriteByAd getFavoriteByAd;
     @Inject
     GetFavoriteByUser getFavoriteByUser;
+    @Inject
+    CreateFavorite createFavorite;
 
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     public APIResponse create(FavoriteDTO dto) {
-       return createEntity.execute(dto, repository, convertToDomain, convertToDTO);
+       return createFavorite.execute(dto);
     }
 
     @GET
