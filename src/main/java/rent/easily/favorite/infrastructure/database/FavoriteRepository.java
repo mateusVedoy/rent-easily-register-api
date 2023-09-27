@@ -11,6 +11,13 @@ import rent.easily.shared.infrastructure.Repository;
 @ApplicationScoped
 public class FavoriteRepository extends Repository<Favorite, FavoriteModel> {
 
+
+    public List<Favorite> getFavoritesByAdAndUser(Long userId, Long advertisementId) {
+        PanacheQuery<FavoriteModel> result = find("userId = ?1 AND advertisementId = ?2", userId, advertisementId);
+        List<FavoriteModel> models = result.list();
+        return convertToDomainList(models);
+    }
+
     public List<Favorite> getFavoritesByAd(Long advertisementId) {
         PanacheQuery<FavoriteModel> result = find("advertisementId = ?1", advertisementId);
         List<FavoriteModel> models = result.list();
