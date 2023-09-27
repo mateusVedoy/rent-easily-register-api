@@ -3,12 +3,21 @@ package rent.easily.user.infrastructure.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.enterprise.context.ApplicationScoped;
 import rent.easily.shared.infrastructure.Repository;
 import rent.easily.user.domain.User;
 
 @ApplicationScoped
 public class UserRepository extends Repository<User, UserModel> {
+
+    public User getUserByCPF(String cpf) {
+        PanacheQuery<UserModel> result = find("CPF = ?1", cpf);
+        UserModel model = result.firstResult();
+        if(model != null)
+            return convertToDomainList(List.of(model)).stream().findFirst().get();
+        return null;
+    }
 
     @Override
     public UserModel convertToModel(User entity) {
