@@ -1,10 +1,9 @@
 package rent.easily.user.domain;
 
 import lombok.Getter;
-import lombok.Setter;
 import rent.easily.shared.domain.Entity;
 
-@Getter @Setter
+@Getter
 public class User extends Entity{
 
     private Long id;

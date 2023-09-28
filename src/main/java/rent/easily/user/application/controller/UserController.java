@@ -9,11 +9,11 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.shared.application.response.APIResponse;
-import rent.easily.shared.application.useCase.CreateEntity;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
 import rent.easily.user.application.dto.UserDTO;
+import rent.easily.user.application.useCase.CreateUser;
 import rent.easily.user.domain.User;
 import rent.easily.user.infrastructure.database.UserModel;
 import rent.easily.user.infrastructure.database.UserRepository;
@@ -23,7 +23,7 @@ import rent.easily.user.infrastructure.database.UserRepository;
 public class UserController {
 
     @Inject
-    CreateEntity<UserDTO, User, UserModel> createEntity;
+    CreateUser createUser;
     @Inject
     UserRepository repository;
     @Inject
@@ -34,13 +34,12 @@ public class UserController {
     GetAllEntities<UserDTO, User, UserModel> getAllEntities;
     @Inject
     GetEntityById<UserDTO, User, UserModel> getEntityById;
-
     
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
     public APIResponse create(UserDTO dto) {
-        return createEntity.execute(dto, repository, convertToDomain, convertToDTO);
+        return createUser.execute(dto);
     }
 
     @GET
@@ -57,4 +56,6 @@ public class UserController {
         Long id = Long.parseLong(identifier);
         return getEntityById.execute(id, repository, convertToDomain, convertToDTO);
     }
+
+    //falta o editar por Id
 }
