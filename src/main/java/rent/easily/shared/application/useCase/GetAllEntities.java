@@ -7,6 +7,7 @@ import jakarta.enterprise.context.Dependent;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.response.ResponseError;
 import rent.easily.shared.application.response.ResponseSuccess;
+import rent.easily.shared.application.response.StatusMessage;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
 import rent.easily.shared.infrastructure.Repository;
@@ -23,17 +24,17 @@ public class GetAllEntities<T1, T2, T3> {
             }
             return buildList(list);
         } catch (ValidationError validationException) {
-            return new ResponseError(400, "Something went wrong. Consult errors.", validationException);
+            return new ResponseError(400, StatusMessage.ERROR.getValue(), validationException);
         } catch (Exception exception) {
-            return new ResponseError(400, "Something went wrong. Consult errors.", exception);
+            return new ResponseError(400, StatusMessage.ERROR.getValue(), exception);
         }
     }
 
     private APIResponse buildList(List<T1> list) {
         if(!isThereAnyValueToBeSolved(list))
-            return new ResponseSuccess<>(200, "There's no data to be returned.");
+            return new ResponseSuccess<>(200, StatusMessage.EMPTY_SUCCESS.getValue());
         
-        return new ResponseSuccess<>(200, "Data fetched bellow.", list);
+        return new ResponseSuccess<>(200, StatusMessage.SUCCESS.getValue(), list);
     }
 
     private boolean isThereAnyValueToBeSolved(List<T1> list) {

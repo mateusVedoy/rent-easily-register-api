@@ -20,6 +20,11 @@ public class ResponseError extends APIResponse<Message> {
         this.errors = buildMessagesFromBusinessException(errors);
     }
 
+    public ResponseError(int status, String message, String stack) {
+        super(status, message);
+        this.errors = new ArrayList<>(List.of(new Message(message, stack)));
+    }
+
     public ResponseError(int status, String message, Exception ex) {
         super(status, message);
         errors = convertAnyExceptionToMessageList(ex);
