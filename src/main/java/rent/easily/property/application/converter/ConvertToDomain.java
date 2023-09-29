@@ -1,4 +1,4 @@
-package rent.easily.user.application.converter;
+package rent.easily.property.application.converter;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import rent.easily.shared.domain.exception.ValidationError;

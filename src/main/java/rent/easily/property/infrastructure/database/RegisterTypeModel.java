@@ -1,4 +1,4 @@
-package rent.easily.user.infrastructure.database;
+package rent.easily.property.infrastructure.database;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

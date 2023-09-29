@@ -1,4 +1,4 @@
-package rent.easily.user.application.dto;
+package rent.easily.property.application.dto;
 
 import lombok.Getter;
 
