@@ -4,7 +4,8 @@ public enum StatusMessage {
     EMPTY_SUCCESS("There's no data to be recovered."),
     SUCCESS("Data fetched bellow."),
     CREATED("Data saved successfully."),
-    ERROR("Something went wrong. Consult errors.");
+    ERROR("Something went wrong. Consult errors."),
+    UPDATE("Data updated successfully.");
 
 
     private final String value;

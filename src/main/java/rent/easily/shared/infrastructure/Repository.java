@@ -28,9 +28,7 @@ public abstract class Repository<T1, T2> implements PanacheRepository<T2>, IRepo
     }
 
     @Override
-    public void editById(Long id, T1 entity) { //estudar forma melhor de editar
-        deleteById(id);
-        T2 model = convertToModel(entity);
+    public void edit(T2 model) { //estudar forma melhor de editar
         persist(model);
     }
 
