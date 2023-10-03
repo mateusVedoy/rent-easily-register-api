@@ -10,8 +10,6 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.shared.application.response.APIResponse;
-import rent.easily.shared.application.response.ResponseError;
-import rent.easily.shared.application.response.ResponseSuccess;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
