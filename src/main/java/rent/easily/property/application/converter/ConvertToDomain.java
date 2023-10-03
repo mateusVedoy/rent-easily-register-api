@@ -1,30 +1,23 @@
 package rent.easily.property.application.converter;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import rent.easily.property.application.dto.PropertyDTO;
+import rent.easily.property.domain.Property;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
-import rent.easily.user.application.dto.RegisterTypeDTO;
-import rent.easily.user.application.dto.UserDTO;
-import rent.easily.user.domain.RegisterType;
-import rent.easily.user.domain.User;
 
 @ApplicationScoped
-public class ConvertToDomain implements IConvert<UserDTO, User>{
+public class ConvertToDomain implements IConvert<PropertyDTO, Property>{
 
     @Override
-    public User convert(UserDTO entry) throws ValidationError {
-        User user = new User(entry.getId(), entry.getFullName(), entry.getCPF(), entry.getIncome(), setRegisterType(entry.getRegisterType()));
-        if(user.isValid())
-            return user;
-        throw new ValidationError(user.getErrors());
-    }
-    
-    private Long setRegisterType(String value) {
-        if(RegisterTypeDTO.LESSE.getValue().equals(value))
-            return RegisterType.LESSEE.getValue();
-        else if(RegisterTypeDTO.LESSOR.getValue().equals(value))
-            return RegisterType.LESSOR.getValue();
-        else
-            return null;
+    public Property convert(PropertyDTO entry) throws ValidationError {
+        Property property = new Property(
+            entry.getId(),
+            entry.getDescription(),
+            entry.getUserId()
+        );
+        if(property.isValid())
+            return property;
+        throw new ValidationError(property.getErrors());
     }
 }
