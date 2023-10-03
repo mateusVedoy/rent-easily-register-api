@@ -27,13 +27,13 @@ public class FavoriteModel {
     @Column(name = "fvt_dateTime")
     private LocalDateTime dateTime;
 
-    public FavoriteModel(Long ad,Long userId, LocalDateTime dateTime) {
+    public FavoriteModel(Long ad, Long userId, LocalDateTime dateTime) {
         this.advertisementId = ad;
         this.userId = userId;
         this.dateTime = dateTime;
     }
 
-    public FavoriteModel(Long id, Long ad,Long userId, LocalDateTime dateTime) {
+    public FavoriteModel(Long id, Long ad, Long userId, LocalDateTime dateTime) {
         this.id = id;
         this.advertisementId = ad;
         this.userId = userId;

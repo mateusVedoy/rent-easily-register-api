@@ -1,6 +1,5 @@
 package rent.easily.favorite.application.useCase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;

@@ -1,4 +1,4 @@
-package rent.easily.favorite.application.dto;
+package rent.easily.evaluation.application.dto;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

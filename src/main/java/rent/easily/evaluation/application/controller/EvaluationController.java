@@ -1,4 +1,4 @@
-package rent.easily.property.application.controller;
+package rent.easily.evaluation.application.controller;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
@@ -9,45 +9,38 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
-import rent.easily.property.application.dto.PropertyDTO;
-import rent.easily.property.application.useCase.CreateProperty;
-import rent.easily.property.domain.Property;
-import rent.easily.property.infrastructure.database.PropertyModel;
-import rent.easily.property.infrastructure.database.PropertyRepository;
+import rent.easily.evaluation.application.dto.EvaluationDTO;
+import rent.easily.evaluation.application.useCase.CreateEvaluation;
+import rent.easily.evaluation.domain.Evaluation;
+import rent.easily.evaluation.infrastructure.database.EvaluationModel;
+import rent.easily.evaluation.infrastructure.database.EvaluationRepository;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
 
-@Path("/property")
+@Path("/evaluation")
 @Transactional
-public class PropertyController {
+public class EvaluationController {
 
     @Inject
-    CreateProperty createEntity;
+    EvaluationRepository repository;
     @Inject
-    PropertyRepository repository;
+    IConvert<EvaluationDTO, Evaluation> convertToDomain;
     @Inject
-    IConvert<PropertyDTO, Property> convertToDomain;
+    IConvert<Evaluation, EvaluationDTO> convertToDTO;
     @Inject
-    IConvert<Property, PropertyDTO> convertToDTO;
+    GetAllEntities<EvaluationDTO, Evaluation, EvaluationModel> getAllEntities;
     @Inject
-    GetAllEntities<PropertyDTO, Property, PropertyModel> getAllEntities;
+    GetEntityById<EvaluationDTO, Evaluation, EvaluationModel> getEntityById;
     @Inject
-    GetEntityById<PropertyDTO, Property, PropertyModel> getEntityById;
+    CreateEvaluation createEvaluation;
 
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse create(PropertyDTO dto) {
-        return createEntity.execute(dto);
-    }
-
-    @GET
-    @Path("/find/all")
-    @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getAll() {
-        return getAllEntities.execute(repository, convertToDomain, convertToDTO);
+    public APIResponse create(EvaluationDTO dto) {
+       return createEvaluation.execute(dto);
     }
 
     @GET
@@ -56,6 +49,13 @@ public class PropertyController {
     public APIResponse getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
         return getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+    }
+
+    @GET
+    @Path("/find/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public APIResponse getAll() {
+        return getAllEntities.execute(repository, convertToDomain, convertToDTO);
     }
 
     @DELETE
