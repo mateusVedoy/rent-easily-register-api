@@ -9,7 +9,6 @@ import rent.easily.property.infrastructure.database.PropertyRepository;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.useCase.CreateEntity;
 import rent.easily.shared.domain.port.IConvert;
-import rent.easily.shared.domain.port.ICriteria;
 
 @ApplicationScoped
 public class CreateProperty {
@@ -21,10 +20,8 @@ public class CreateProperty {
     IConvert<PropertyDTO, Property> convertToDomain;
     @Inject
     IConvert<Property, PropertyDTO> convertToDTO;
-    @Inject
-    ICriteria<Property> spec;
 
     public APIResponse execute(PropertyDTO dto) {
-        return createEntity.execute(dto, repository, convertToDomain, convertToDTO, spec);
+        return createEntity.execute(dto, repository, convertToDomain, convertToDTO, null);
     }
 }

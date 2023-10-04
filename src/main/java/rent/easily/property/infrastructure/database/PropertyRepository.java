@@ -15,8 +15,6 @@ public class PropertyRepository extends Repository<Property, PropertyModel> {
         PropertyModel model = new PropertyModel(
                 entity.getDescription(),
                 entity.getUserId());
-
-        System.out.println(model.toString());
         return model;
     }
 

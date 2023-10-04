@@ -12,7 +12,6 @@ public class ConvertToDomain implements IConvert<PropertyDTO, Property>{
     @Override
     public Property convert(PropertyDTO entry) throws ValidationError {
         Property property = new Property(
-            entry.getId(),
             entry.getDescription(),
             entry.getUserId()
         );
