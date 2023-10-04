@@ -23,7 +23,8 @@ public class CreateEntity<T1, T2, T3> {
         ICriteria<T2> specification) {
         try {
             T2 entity = convertToDomain.convert(dto);
-            specification.validate(entity);
+            if(hasSpecification(specification))
+                specification.validate(entity);
             repository.save(entity);
             return new ResponseSuccess<>(201, StatusMessage.CREATED.getValue());
         } catch (ValidationError validationException) {
@@ -31,5 +32,9 @@ public class CreateEntity<T1, T2, T3> {
         } catch (Exception exception) {
             return new ResponseError(400, StatusMessage.ERROR.getValue(), exception);
         }
+    }
+
+    private boolean hasSpecification(ICriteria<T2> spec) {
+        return spec != null;
     }
 }
