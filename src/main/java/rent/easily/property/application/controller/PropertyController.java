@@ -15,6 +15,7 @@ import rent.easily.property.domain.Property;
 import rent.easily.property.infrastructure.database.PropertyModel;
 import rent.easily.property.infrastructure.database.PropertyRepository;
 import rent.easily.shared.application.response.APIResponse;
+import rent.easily.shared.application.useCase.DeleteEntityById;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
@@ -35,6 +36,8 @@ public class PropertyController {
     GetAllEntities<PropertyDTO, Property, PropertyModel> getAllEntities;
     @Inject
     GetEntityById<PropertyDTO, Property, PropertyModel> getEntityById;
+    @Inject
+    DeleteEntityById<Property, PropertyModel> deleteEntityById;
 
     @POST
     @Path("/create")
@@ -50,6 +53,8 @@ public class PropertyController {
         return getAllEntities.execute(repository, convertToDomain, convertToDTO);
     }
 
+    //TODO: listar todos imóveis do usuario
+
     @GET
     @Path("find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
@@ -59,10 +64,10 @@ public class PropertyController {
     }
 
     @DELETE
-    @Path("/delete/{identifier}")
+    @Path("/delete/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
     public APIResponse deleteById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return null;
+        return deleteEntityById.execute(id, repository);
     }
 }
