@@ -25,4 +25,8 @@ public abstract class Entity {
     }
 
     public abstract void validate();
+
+    protected <T> boolean isNull(T value) {
+        return value == null;
+    }
 }

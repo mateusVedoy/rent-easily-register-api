@@ -38,25 +38,13 @@ public class Favorite extends Entity {
 
     @Override
     public void validate() {
-        if(isAdvertisementIdInvalid())
+        if(isNull(this.advertisementId))
             addError("Advertisement Id is mandatory.", "domain.Favorite.advertisementId");
 
-        if(isUserIdInvalid())
+        if(isNull(this.userId))
             addError("User id is mandatory.", "domain.Favorite.userId");
 
-        if(isDateTimeInvalid())
+        if(isNull(this.dateTime))
             addError("Date and time is mandatory.", "domain.Favorite.dateTime");
-    }
-    
-    private boolean isAdvertisementIdInvalid() {
-        return this.advertisementId == null;
-    }
-
-    private boolean isUserIdInvalid() {
-        return this.userId == null;
-    }
-
-    private boolean isDateTimeInvalid() {
-        return this.dateTime == null || this.dateTime.toString().isBlank() || this.dateTime.toString().isEmpty();
-    }
+    }   
 }
