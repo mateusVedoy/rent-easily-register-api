@@ -1,11 +1,11 @@
-package rent.easily.favorite.application.specification;
+package rent.easily.favorite.domain.specification;
 
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.validation.ValidationException;
-import rent.easily.favorite.domain.Favorite;
+import rent.easily.favorite.domain.entity.Favorite;
 import rent.easily.favorite.infrastructure.database.FavoriteRepository;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.ICriteria;

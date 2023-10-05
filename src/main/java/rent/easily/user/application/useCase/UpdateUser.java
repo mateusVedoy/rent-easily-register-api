@@ -6,7 +6,7 @@ import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.useCase.UpdateEntity;
 import rent.easily.user.application.dto.UserDTO;
 import rent.easily.user.application.service.UserNormalize;
-import rent.easily.user.domain.User;
+import rent.easily.user.domain.entity.User;
 import rent.easily.user.infrastructure.database.UserModel;
 import rent.easily.user.infrastructure.database.UserRepository;
 

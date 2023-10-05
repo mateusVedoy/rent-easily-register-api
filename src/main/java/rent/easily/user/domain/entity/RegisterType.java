@@ -1,4 +1,4 @@
-package rent.easily.user.domain;
+package rent.easily.user.domain.entity;
 
 public enum RegisterType {
     LESSEE(1L),

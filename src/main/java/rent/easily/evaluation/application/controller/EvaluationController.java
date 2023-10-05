@@ -11,7 +11,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.evaluation.application.dto.EvaluationDTO;
 import rent.easily.evaluation.application.useCase.CreateEvaluation;
-import rent.easily.evaluation.domain.Evaluation;
+import rent.easily.evaluation.domain.entity.Evaluation;
 import rent.easily.evaluation.infrastructure.database.EvaluationModel;
 import rent.easily.evaluation.infrastructure.database.EvaluationRepository;
 import rent.easily.shared.application.response.APIResponse;

@@ -5,7 +5,7 @@ import java.util.List;
 
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.enterprise.context.ApplicationScoped;
-import rent.easily.favorite.domain.Favorite;
+import rent.easily.favorite.domain.entity.Favorite;
 import rent.easily.shared.infrastructure.Repository;
 
 @ApplicationScoped

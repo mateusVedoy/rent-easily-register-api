@@ -7,7 +7,7 @@ import rent.easily.shared.application.useCase.CreateEntity;
 import rent.easily.shared.domain.port.IConvert;
 import rent.easily.shared.domain.port.ICriteria;
 import rent.easily.user.application.dto.UserDTO;
-import rent.easily.user.domain.User;
+import rent.easily.user.domain.entity.User;
 import rent.easily.user.infrastructure.database.UserModel;
 import rent.easily.user.infrastructure.database.UserRepository;
 

@@ -1,4 +1,4 @@
-package rent.easily.favorite.domain;
+package rent.easily.favorite.domain.entity;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

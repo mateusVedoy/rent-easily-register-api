@@ -1,8 +1,8 @@
-package rent.easily.evaluation.application.specification;
+package rent.easily.evaluation.domain.specification;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import rent.easily.evaluation.domain.Evaluation;
+import rent.easily.evaluation.domain.entity.Evaluation;
 import rent.easily.evaluation.infrastructure.database.EvaluationRepository;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.ICriteria;

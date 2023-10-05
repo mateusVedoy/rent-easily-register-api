@@ -1,4 +1,4 @@
-package rent.easily.evaluation.domain;
+package rent.easily.evaluation.domain.entity;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;

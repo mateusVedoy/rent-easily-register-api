@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import rent.easily.evaluation.domain.Evaluation;
+import rent.easily.evaluation.domain.entity.Evaluation;
 import rent.easily.shared.infrastructure.Repository;
 
 @ApplicationScoped

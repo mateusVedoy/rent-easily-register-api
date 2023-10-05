@@ -6,7 +6,7 @@ import java.util.List;
 import io.quarkus.hibernate.orm.panache.PanacheQuery;
 import jakarta.enterprise.context.ApplicationScoped;
 import rent.easily.shared.infrastructure.Repository;
-import rent.easily.user.domain.User;
+import rent.easily.user.domain.entity.User;
 
 @ApplicationScoped
 public class UserRepository extends Repository<User, UserModel> {

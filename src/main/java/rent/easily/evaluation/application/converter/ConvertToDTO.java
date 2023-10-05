@@ -6,7 +6,7 @@ import java.time.LocalTime;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import rent.easily.evaluation.application.dto.EvaluationDTO;
-import rent.easily.evaluation.domain.Evaluation;
+import rent.easily.evaluation.domain.entity.Evaluation;
 import rent.easily.evaluation.application.dto.DateTimeDTO;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;

@@ -5,8 +5,8 @@ import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
 import rent.easily.user.application.dto.RegisterTypeDTO;
 import rent.easily.user.application.dto.UserDTO;
-import rent.easily.user.domain.RegisterType;
-import rent.easily.user.domain.User;
+import rent.easily.user.domain.entity.RegisterType;
+import rent.easily.user.domain.entity.User;
 
 @ApplicationScoped
 public class ConvertToDomain implements IConvert<UserDTO, User>{

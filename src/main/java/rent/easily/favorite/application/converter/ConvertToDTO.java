@@ -7,7 +7,7 @@ import java.time.LocalTime;
 import jakarta.enterprise.context.ApplicationScoped;
 import rent.easily.favorite.application.dto.DateTimeDTO;
 import rent.easily.favorite.application.dto.FavoriteDTO;
-import rent.easily.favorite.domain.Favorite;
+import rent.easily.favorite.domain.entity.Favorite;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
 

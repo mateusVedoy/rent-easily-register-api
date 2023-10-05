@@ -13,7 +13,7 @@ import rent.easily.favorite.application.dto.FavoriteDTO;
 import rent.easily.favorite.application.useCase.CreateFavorite;
 import rent.easily.favorite.application.useCase.GetFavoriteByAd;
 import rent.easily.favorite.application.useCase.GetFavoriteByUser;
-import rent.easily.favorite.domain.Favorite;
+import rent.easily.favorite.domain.entity.Favorite;
 import rent.easily.favorite.infrastructure.database.FavoriteModel;
 import rent.easily.favorite.infrastructure.database.FavoriteRepository;
 import rent.easily.shared.application.response.APIResponse;

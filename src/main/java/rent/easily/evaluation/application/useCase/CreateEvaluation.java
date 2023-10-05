@@ -3,7 +3,7 @@ package rent.easily.evaluation.application.useCase;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import rent.easily.evaluation.application.dto.EvaluationDTO;
-import rent.easily.evaluation.domain.Evaluation;
+import rent.easily.evaluation.domain.entity.Evaluation;
 import rent.easily.evaluation.infrastructure.database.EvaluationModel;
 import rent.easily.evaluation.infrastructure.database.EvaluationRepository;
 import rent.easily.shared.application.response.APIResponse;

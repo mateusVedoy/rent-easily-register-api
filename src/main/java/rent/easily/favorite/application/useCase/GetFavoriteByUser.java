@@ -1,12 +1,11 @@
 package rent.easily.favorite.application.useCase;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import rent.easily.favorite.application.dto.FavoriteDTO;
-import rent.easily.favorite.domain.Favorite;
+import rent.easily.favorite.domain.entity.Favorite;
 import rent.easily.favorite.infrastructure.database.FavoriteRepository;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.response.ResponseError;

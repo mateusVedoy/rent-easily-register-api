@@ -1,4 +1,4 @@
-package rent.easily.user.domain;
+package rent.easily.user.domain.entity;
 
 import lombok.Getter;
 import rent.easily.shared.domain.Entity;
