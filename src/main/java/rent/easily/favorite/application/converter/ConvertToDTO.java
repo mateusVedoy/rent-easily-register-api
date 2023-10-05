@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import rent.easily.favorite.application.dto.DateTimeDTO;
+import rent.easily.shared.application.dto.DateTimeDTO;
 import rent.easily.favorite.application.dto.FavoriteDTO;
 import rent.easily.favorite.domain.entity.Favorite;
 import rent.easily.shared.domain.exception.ValidationError;

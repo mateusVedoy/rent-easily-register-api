@@ -2,6 +2,7 @@ package rent.easily.evaluation.application.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import rent.easily.shared.application.dto.DateTimeDTO;
 
 @Getter
 @NoArgsConstructor
