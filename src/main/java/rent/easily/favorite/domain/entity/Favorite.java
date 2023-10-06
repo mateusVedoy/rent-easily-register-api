@@ -26,7 +26,6 @@ public class Favorite extends Entity {
         this.id = id;
         this.advertisementId = ad;
         this.userId = userId;
-        this.dateTime = setDateTime();
         this.dateTime = dateTime;
     }
 

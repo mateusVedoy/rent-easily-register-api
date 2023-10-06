@@ -11,8 +11,7 @@ public class ConvertToDomain implements IConvert<ProposalDTO, Proposal> {
 
     @Override
     public Proposal convert(ProposalDTO entry) throws ValidationError {
-        Proposal proposal = new Proposal(entry.getAdvertisementId(), entry.getUserId(), entry.getAmount(),
-                entry.getInformation());
+        Proposal proposal = new Proposal(entry.getAdvertisementId(), entry.getUserId(), entry.getAmount(), entry.getInformation());
 
         if (proposal.isValid())
             return proposal;

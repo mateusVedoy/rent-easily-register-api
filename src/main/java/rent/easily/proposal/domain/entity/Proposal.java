@@ -26,6 +26,7 @@ public class Proposal extends Entity {
 
     public Proposal(Long id, LocalDateTime dateTime, Long advertisementId, Long userId, double amount,
             String information) {
+        this.id = id;
         this.dateTime = dateTime;
         this.advertisementId = advertisementId;
         this.userId = userId;
