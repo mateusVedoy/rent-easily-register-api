@@ -3,9 +3,11 @@ package rent.easily.proposal.infrastructure.database;
 import java.util.ArrayList;
 import java.util.List;
 
-import rent.easily.proposal.domain.Proposal;
+import jakarta.enterprise.context.ApplicationScoped;
+import rent.easily.proposal.domain.entity.Proposal;
 import rent.easily.shared.infrastructure.Repository;
 
+@ApplicationScoped
 public class ProposalRepository extends Repository<Proposal, ProposalModel>{
 
     @Override
