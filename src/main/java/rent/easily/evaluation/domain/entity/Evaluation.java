@@ -1,8 +1,6 @@
 package rent.easily.evaluation.domain.entity;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,13 +40,9 @@ public class Evaluation extends Entity {
         this.postingDateTime = setDateTime();
     }
 
-    private LocalDateTime setDateTime() {
-        return new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().withNano(0);
-    }
-
     @Override
     public void validate() {
-        // TODO Auto-generated method stub
+        // TODO: implements this validation
         throw new UnsupportedOperationException("Unimplemented method 'validate'");
     }
 }

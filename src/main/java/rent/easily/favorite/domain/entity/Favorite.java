@@ -1,8 +1,6 @@
 package rent.easily.favorite.domain.entity;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.util.Date;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,10 +28,6 @@ public class Favorite extends Entity {
         this.userId = userId;
         this.dateTime = setDateTime();
         this.dateTime = dateTime;
-    }
-
-    private LocalDateTime setDateTime() {
-        return new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().withNano(0);
     }
 
     @Override

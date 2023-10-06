@@ -1,6 +1,9 @@
 package rent.easily.shared.domain;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import rent.easily.shared.domain.exception.BusinessException;
 
@@ -28,5 +31,9 @@ public abstract class Entity {
 
     protected <T> boolean isNull(T value) {
         return value == null;
+    }
+
+    protected LocalDateTime setDateTime() {
+        return new Date().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime().withNano(0);
     }
 }

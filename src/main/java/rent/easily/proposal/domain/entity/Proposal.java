@@ -1,4 +1,4 @@
-package rent.easily.proposal.domain;
+package rent.easily.proposal.domain.entity;
 
 import java.time.LocalDateTime;
 
@@ -15,8 +15,8 @@ public class Proposal extends Entity {
     private double amount;
     private String information;
 
-    public Proposal(LocalDateTime dateTime, Long advertisementId, Long userId, double amount, String information) {
-        this.dateTime = dateTime;
+    public Proposal(Long advertisementId, Long userId, double amount, String information) {
+        this.dateTime = setDateTime();
         this.advertisementId = advertisementId;
         this.userId = userId;
         this.amount = amount;
