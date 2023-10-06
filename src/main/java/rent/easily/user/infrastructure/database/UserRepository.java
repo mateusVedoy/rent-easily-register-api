@@ -11,6 +11,11 @@ import rent.easily.user.domain.entity.User;
 @ApplicationScoped
 public class UserRepository extends Repository<User, UserModel> {
 
+    public boolean existsUserById(Long id) {
+        Long result = count("id = ?1",id);
+        return result > 0;
+    }
+
     public User getUserByCPF(String cpf) {
         PanacheQuery<UserModel> result = find("CPF = ?1", cpf);
         UserModel model = result.firstResult();
