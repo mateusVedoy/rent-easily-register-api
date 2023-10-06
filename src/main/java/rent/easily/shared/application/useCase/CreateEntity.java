@@ -28,7 +28,7 @@ public class CreateEntity<T1, T2, T3> {
             repository.save(entity);
             return new ResponseSuccess<>(201, StatusMessage.CREATED.getValue());
         } catch (ValidationError validationException) {
-            return new ResponseError(400, StatusMessage.ERROR.getValue(), validationException);
+            return new ResponseError(400, StatusMessage.ERROR.getValue(), validationException.getErrors());
         } catch (Exception exception) {
             return new ResponseError(400, StatusMessage.ERROR.getValue(), exception);
         }

@@ -1,8 +1,10 @@
 package rent.easily.user.domain.specification;
 
+import java.util.List;
+
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import jakarta.validation.ValidationException;
+import rent.easily.shared.domain.exception.BusinessException;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.ICriteria;
 import rent.easily.user.domain.entity.User;
@@ -18,7 +20,7 @@ public class CreateUserSpec implements ICriteria<User>{
     public void validate(User entry) throws ValidationError {
         User user = repository.getUserByCPF(entry.getCPF());
         if(exists(user))
-            throw new ValidationException("User already exists to informed CPF");
+            throw new ValidationError(List.of(new BusinessException("User already exists to informed CPF", "domain.User.CPF")));
     }
 
     private boolean exists(User user) {
