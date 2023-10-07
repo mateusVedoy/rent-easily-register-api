@@ -1,4 +1,4 @@
-package rent.easily.property.domain;
+package rent.easily.property.domain.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

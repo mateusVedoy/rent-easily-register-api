@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import rent.easily.property.domain.entity.Property;
 import rent.easily.shared.infrastructure.Repository;
-import rent.easily.property.domain.Property;
 
 @ApplicationScoped
 public class PropertyRepository extends Repository<Property, PropertyModel> {

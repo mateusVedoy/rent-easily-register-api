@@ -4,6 +4,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -11,7 +12,8 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.application.useCase.CreateProperty;
-import rent.easily.property.domain.Property;
+import rent.easily.property.application.useCase.UpdateProperty;
+import rent.easily.property.domain.entity.Property;
 import rent.easily.property.infrastructure.database.PropertyModel;
 import rent.easily.property.infrastructure.database.PropertyRepository;
 import rent.easily.shared.application.response.APIResponse;
@@ -38,6 +40,8 @@ public class PropertyController {
     GetEntityById<PropertyDTO, Property, PropertyModel> getEntityById;
     @Inject
     DeleteEntityById<Property, PropertyModel> deleteEntityById;
+    @Inject
+    UpdateProperty updateProperty;
 
     @POST
     @Path("/create")
@@ -57,8 +61,16 @@ public class PropertyController {
 
     //TODO: editar imovel
 
+    @PATCH
+    @Path("/update/{identifier}")
+     @Produces(MediaType.APPLICATION_JSON)
+     public APIResponse updateById(@PathParam("identifier") String identifier, PropertyDTO dto) {
+        Long id = Long.parseLong(identifier);
+        return updateProperty.execute(id, dto);
+     }
+
     @GET
-    @Path("find/id/{identifier}")
+    @Path("/find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
     public APIResponse getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
