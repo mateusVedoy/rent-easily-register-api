@@ -55,6 +55,8 @@ public class PropertyController {
 
     //TODO: listar todos imóveis do usuario
 
+    //TODO: editar imovel
+
     @GET
     @Path("find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
