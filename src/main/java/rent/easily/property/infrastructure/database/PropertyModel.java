@@ -7,12 +7,14 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
 @Table(name = "property")
 @Getter
 @Setter
+@NoArgsConstructor
 public class PropertyModel {
 
     @Id
@@ -23,19 +25,19 @@ public class PropertyModel {
     private String description;
     @Column(name = "usr_code")
     private Long userId;
-
-    public PropertyModel() {
-    }
+    private String active;
 
     public PropertyModel(String description, Long userId) {
         this.description = description;
         this.userId = userId;
+        this.active = "1";
     }
 
-    public PropertyModel(Long id, String description, Long userId) {
+    public PropertyModel(Long id, String description, Long userId, String active) {
         this.id = id;
         this.description = description;
         this.userId = userId;
+        this.active = active;
     }
 
     public String toString() {

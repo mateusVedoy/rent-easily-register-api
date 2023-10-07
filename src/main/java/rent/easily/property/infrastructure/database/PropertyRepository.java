@@ -22,7 +22,7 @@ public class PropertyRepository extends Repository<Property, PropertyModel> {
     protected List<Property> convertToDomainList(List<PropertyModel> models) {
         List<Property> properties = new ArrayList<>();
         for (PropertyModel model : models) {
-            properties.add(new Property(model.getId(), model.getDescription(), model.getUserId()));
+            properties.add(new Property(model.getId(), model.getDescription(), model.getUserId(), model.getActive()));
         }
         return properties;
     }

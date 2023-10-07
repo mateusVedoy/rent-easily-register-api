@@ -8,16 +8,23 @@ import rent.easily.shared.domain.Entity;
 @NoArgsConstructor
 public class Property extends Entity {
 
+    private static final String ACTIVE_TRUE = "1";
     private Long id;
     private String description;
     private Long userId;
+    private boolean active;
 
 
-    public Property(Long id, String description, Long userId) {
+    public Property(Long id, String description, Long userId, String active) {
         this.id = id;
         this.description = description;
         this.userId = userId;
+        this.active = setActive(active);
         validate();
+    }
+
+    private boolean setActive(String active) {
+        return active.equals(ACTIVE_TRUE) ? true : false;
     }
 
     public Property(String description, Long userId) {
