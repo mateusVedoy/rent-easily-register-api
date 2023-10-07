@@ -2,6 +2,7 @@ package rent.easily.proposal.application.controller;
 
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
@@ -10,6 +11,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import rent.easily.proposal.application.dto.ProposalDTO;
 import rent.easily.proposal.application.useCase.CreateProposal;
+import rent.easily.proposal.application.useCase.DeleteProposalById;
 import rent.easily.proposal.application.useCase.FindAllProposals;
 import rent.easily.proposal.application.useCase.FindProposalById;
 import rent.easily.shared.application.response.APIResponse;
@@ -17,13 +19,15 @@ import rent.easily.shared.application.response.APIResponse;
 @Path("proposal")
 @Transactional
 public class ProposalController {
-    
+
     @Inject
     CreateProposal createProposal;
     @Inject
     FindAllProposals findAllProposals;
     @Inject
     FindProposalById findProposalById;
+    @Inject
+    DeleteProposalById deleteEntityById;
 
     @POST
     @Path("/create")
@@ -42,6 +46,14 @@ public class ProposalController {
     @Path("/find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
     public APIResponse getById(@PathParam("identifier") String identifier) {
+        Long id = Long.parseLong(identifier);
+        return findProposalById.execute(id);
+    }
+
+    @DELETE
+    @Path("/delete/{identifier}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public APIResponse deleteById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
         return findProposalById.execute(id);
     }
