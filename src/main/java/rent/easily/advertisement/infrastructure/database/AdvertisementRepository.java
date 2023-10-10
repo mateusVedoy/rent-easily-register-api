@@ -10,6 +10,12 @@ import rent.easily.shared.infrastructure.Repository;
 @ApplicationScoped
 public class AdvertisementRepository extends  Repository<Advertisement, AdvertisementModel> {
 
+
+    public boolean existsById(Long id) {
+        Long result = count("id = ?1",id);
+        return result > 0;
+    }
+
     @Override
     protected AdvertisementModel convertToModel(Advertisement entity) {
         return new AdvertisementModel(entity.getRentAmount(), entity.getInformation(), entity.getPostedAt(), entity.getPropertyId());
