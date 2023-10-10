@@ -5,6 +5,7 @@ import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import rent.easily.advertisement.infrastructure.database.AdvertisementRepository;
 import rent.easily.proposal.domain.entity.Proposal;
 import rent.easily.proposal.infrastructure.database.ProposalRepository;
 import rent.easily.shared.domain.exception.BusinessException;
@@ -19,6 +20,8 @@ public class CreateProposalSpec implements ICriteria<Proposal> {
     UserRepository userRepository;
     @Inject
     ProposalRepository proposalRepository;
+    @Inject
+    AdvertisementRepository advertisementRepository;
 
     private List<BusinessException> errors;
 
@@ -26,7 +29,9 @@ public class CreateProposalSpec implements ICriteria<Proposal> {
     public void validate(Proposal entry) throws ValidationError {
 
         errors = new ArrayList<>();
-        // TODO: valida exist de anuncio
+        
+        if(!existsAdsForGivenId(entry.getAdvertisementId()))
+            errors.add(new BusinessException("There's no Advertisement for given advertisementId", "domain.Advertisement"));
 
         if (!isThereUserForGivenId(entry.getUserId()))
             errors.add(new BusinessException("There's no User for given userId", "domain.User.id"));
@@ -42,11 +47,15 @@ public class CreateProposalSpec implements ICriteria<Proposal> {
         return errors.size() > 0;
     }
 
+    private boolean existsAdsForGivenId(Long id) {
+        return advertisementRepository.existsById(id);
+    }
+
     private boolean isThereUserForGivenId(Long id) {
-       return userRepository.existsUserById(id);
+        return userRepository.existsUserById(id);
     }
 
     private boolean isThereProposalForGivenUserAndAdd(Long userId, Long add) {
-       return proposalRepository.existsProposalsForUserAndAdd(userId, add);
+        return proposalRepository.existsProposalsForUserAndAdd(userId, add);
     }
 }
