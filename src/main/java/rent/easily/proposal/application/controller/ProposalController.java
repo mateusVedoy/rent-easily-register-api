@@ -9,6 +9,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import rent.easily.proposal.application.dto.ProposalDTO;
 import rent.easily.proposal.application.useCase.CreateProposal;
 import rent.easily.proposal.application.useCase.DeleteProposalById;
@@ -16,7 +17,7 @@ import rent.easily.proposal.application.useCase.FindAllProposals;
 import rent.easily.proposal.application.useCase.FindProposalById;
 import rent.easily.shared.application.response.APIResponse;
 
-@Path("proposal")
+@Path("/proposal")
 @Transactional
 public class ProposalController {
 
@@ -31,30 +32,34 @@ public class ProposalController {
 
     @POST
     @Path("/create")
-    public APIResponse create(ProposalDTO dto) {
-        return createProposal.execute(dto);
+    public Response create(ProposalDTO dto) {
+        APIResponse result = createProposal.execute(dto);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("/find/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getAll() {
-        return findAllProposals.execute();
+    public Response getAll() {
+        APIResponse result = findAllProposals.execute();
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("/find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getById(@PathParam("identifier") String identifier) {
+    public Response getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return findProposalById.execute(id);
+        APIResponse result = findProposalById.execute(id);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @DELETE
     @Path("/delete/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse deleteById(@PathParam("identifier") String identifier) {
+    public Response deleteById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return findProposalById.execute(id);
+        APIResponse result = findProposalById.execute(id);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 }

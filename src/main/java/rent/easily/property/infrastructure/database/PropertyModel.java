@@ -19,13 +19,14 @@ public class PropertyModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "prop_code")
+    @Column(name = "pro_code")
     private Long id;
-    @Column(name = "prop_description")
+    @Column(name = "pro_description")
     private String description;
+    @Column(name = "pro_active")
+    private String active;
     @Column(name = "usr_code")
     private Long userId;
-    private String active;
 
     public PropertyModel(String description, Long userId) {
         this.description = description;

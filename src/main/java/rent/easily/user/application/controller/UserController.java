@@ -9,6 +9,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
@@ -42,30 +43,34 @@ public class UserController {
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse create(UserDTO dto) {
-        return createUser.execute(dto);
+    public Response create(UserDTO dto) {
+        APIResponse result = createUser.execute(dto);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("/find/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getAll() {
-        return getAllEntities.execute(repository, convertToDomain, convertToDTO);
+    public Response getAll() {
+        APIResponse result = getAllEntities.execute(repository, convertToDomain, convertToDTO);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getById(@PathParam("identifier") String identifier) {
+    public Response getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        APIResponse result = getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @PATCH
     @Path("/update/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON_PATCH_JSON)
-    public APIResponse update(@PathParam("identifier") String identifier, UserDTO user) {
+    public Response update(@PathParam("identifier") String identifier, UserDTO user) {
         Long id = Long.parseLong(identifier);
-        return updateUser.execute(user, id);
+        APIResponse result = updateUser.execute(user, id);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 }

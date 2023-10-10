@@ -10,6 +10,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.application.useCase.CreateProperty;
 import rent.easily.property.application.useCase.UpdateProperty;
@@ -46,42 +47,47 @@ public class PropertyController {
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse create(PropertyDTO dto) {
-        return createEntity.execute(dto);
+    public Response create(PropertyDTO dto) {
+        APIResponse result = createEntity.execute(dto);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("/find/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getAll() {
-        return getAllEntities.execute(repository, convertToDomain, convertToDTO);
+    public Response getAll() {
+        APIResponse result = getAllEntities.execute(repository, convertToDomain, convertToDTO);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
-    //TODO: listar todos imóveis do usuario
+    // TODO: listar todos imóveis do usuario
 
-    //TODO: editar imovel
+    // TODO: editar imovel
 
     @PATCH
     @Path("/update/{identifier}")
-     @Produces(MediaType.APPLICATION_JSON)
-     public APIResponse updateById(@PathParam("identifier") String identifier, PropertyDTO dto) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response updateById(@PathParam("identifier") String identifier, PropertyDTO dto) {
         Long id = Long.parseLong(identifier);
-        return updateProperty.execute(id, dto);
-     }
+        APIResponse result = updateProperty.execute(id, dto);
+        return Response.status(result.getStatus()).entity(result).build();
+    }
 
     @GET
     @Path("/find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getById(@PathParam("identifier") String identifier) {
+    public Response getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        APIResponse result =  getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @DELETE
     @Path("/delete/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse deleteById(@PathParam("identifier") String identifier) {
+    public Response deleteById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return deleteEntityById.execute(id, repository);
+        APIResponse result = deleteEntityById.execute(id, repository);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 }

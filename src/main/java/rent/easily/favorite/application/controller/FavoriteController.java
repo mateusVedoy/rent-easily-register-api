@@ -9,6 +9,7 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import rent.easily.favorite.application.dto.FavoriteDTO;
 import rent.easily.favorite.application.useCase.CreateFavorite;
 import rent.easily.favorite.application.useCase.GetFavoriteByAd;
@@ -17,6 +18,7 @@ import rent.easily.favorite.domain.entity.Favorite;
 import rent.easily.favorite.infrastructure.database.FavoriteModel;
 import rent.easily.favorite.infrastructure.database.FavoriteRepository;
 import rent.easily.shared.application.response.APIResponse;
+import rent.easily.shared.application.useCase.DeleteEntityById;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
@@ -41,43 +43,50 @@ public class FavoriteController {
     GetFavoriteByUser getFavoriteByUser;
     @Inject
     CreateFavorite createFavorite;
+    @Inject
+    DeleteEntityById<Favorite, FavoriteModel> deleteEntityById;
 
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse create(FavoriteDTO dto) {
-       return createFavorite.execute(dto);
+    public Response create(FavoriteDTO dto) {
+       APIResponse result = createFavorite.execute(dto);
+       return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("/find/advertisement/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getFavByAd(@PathParam("identifier") String identifier) {
+    public Response getFavByAd(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return getFavoriteByAd.execute(id);
+        APIResponse result = getFavoriteByAd.execute(id);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("/find/user/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getFavByUser(@PathParam("identifier") String identifier) {
+    public Response getFavByUser(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return getFavoriteByUser.execute(id);
+        APIResponse result = getFavoriteByUser.execute(id);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getById(@PathParam("identifier") String identifier) {
+    public Response getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        APIResponse result = getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @DELETE
     @Path("/delete/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse deleteById(@PathParam("identifier") String identifier) {
+    public Response deleteById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return null;
+        APIResponse result = deleteEntityById.execute(id, repository);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 }

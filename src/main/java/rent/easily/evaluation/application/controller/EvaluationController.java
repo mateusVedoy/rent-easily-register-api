@@ -9,12 +9,14 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 import rent.easily.evaluation.application.dto.EvaluationDTO;
 import rent.easily.evaluation.application.useCase.CreateEvaluation;
 import rent.easily.evaluation.domain.entity.Evaluation;
 import rent.easily.evaluation.infrastructure.database.EvaluationModel;
 import rent.easily.evaluation.infrastructure.database.EvaluationRepository;
 import rent.easily.shared.application.response.APIResponse;
+import rent.easily.shared.application.useCase.DeleteEntityById;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
@@ -35,34 +37,40 @@ public class EvaluationController {
     GetEntityById<EvaluationDTO, Evaluation, EvaluationModel> getEntityById;
     @Inject
     CreateEvaluation createEvaluation;
+    @Inject
+    DeleteEntityById<Evaluation, EvaluationModel> deleteEntityById;
 
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse create(EvaluationDTO dto) {
-       return createEvaluation.execute(dto);
+    public Response create(EvaluationDTO dto) {
+       APIResponse result = createEvaluation.execute(dto);
+       return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("find/id/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getById(@PathParam("identifier") String identifier) {
+    public Response getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        APIResponse result = getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
     @Path("/find/all")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse getAll() {
-        return getAllEntities.execute(repository, convertToDomain, convertToDTO);
+    public Response getAll() {
+        APIResponse result = getAllEntities.execute(repository, convertToDomain, convertToDTO);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 
     @DELETE
     @Path("/delete/{identifier}")
     @Produces(MediaType.APPLICATION_JSON)
-    public APIResponse deleteById(@PathParam("identifier") String identifier) {
+    public Response deleteById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        return null;
+        APIResponse result = deleteEntityById.execute(id, repository);
+        return Response.status(result.getStatus()).entity(result).build();
     }
 }

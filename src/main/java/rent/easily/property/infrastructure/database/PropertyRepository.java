@@ -10,6 +10,11 @@ import rent.easily.shared.infrastructure.Repository;
 @ApplicationScoped
 public class PropertyRepository extends Repository<Property, PropertyModel> {
 
+    public boolean existsById(Long id) {
+        Long result = count("id = ?1", id);
+        return result > 0;
+    }
+
     @Override
     protected PropertyModel convertToModel(Property entity) {
         PropertyModel model = new PropertyModel(
