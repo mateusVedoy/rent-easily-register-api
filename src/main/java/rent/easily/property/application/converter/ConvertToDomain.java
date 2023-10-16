@@ -13,7 +13,8 @@ public class ConvertToDomain implements IConvert<PropertyDTO, Property>{
     public Property convert(PropertyDTO entry) throws ValidationError {
         Property property = new Property(
             entry.getDescription(),
-            entry.getUserId()
+            entry.getUserId(),
+            entry.getRegistryId()
         );
         if(property.isValid())
             return property;

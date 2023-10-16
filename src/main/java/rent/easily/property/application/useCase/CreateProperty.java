@@ -26,6 +26,8 @@ public class CreateProperty {
     
 
     public APIResponse execute(PropertyDTO dto) {
+        //cria imóvel porém inativo
+        //após validação da API externa, essa faz patch para endpoint a ser criado
         return createEntity.execute(dto, repository, convertToDomain, convertToDTO, spec);
     }
 }

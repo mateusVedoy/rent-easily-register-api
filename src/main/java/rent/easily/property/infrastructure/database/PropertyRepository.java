@@ -19,7 +19,8 @@ public class PropertyRepository extends Repository<Property, PropertyModel> {
     protected PropertyModel convertToModel(Property entity) {
         PropertyModel model = new PropertyModel(
                 entity.getDescription(),
-                entity.getUserId());
+                entity.getUserId(),
+                entity.getRegistryId());
         return model;
     }
 
@@ -27,7 +28,7 @@ public class PropertyRepository extends Repository<Property, PropertyModel> {
     protected List<Property> convertToDomainList(List<PropertyModel> models) {
         List<Property> properties = new ArrayList<>();
         for (PropertyModel model : models) {
-            properties.add(new Property(model.getId(), model.getDescription(), model.getUserId(), model.getActive()));
+            properties.add(new Property(model.getId(), model.getDescription(), model.getUserId(), model.getRegistryId(), model.getActive()));
         }
         return properties;
     }

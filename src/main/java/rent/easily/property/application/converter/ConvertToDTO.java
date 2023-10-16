@@ -15,6 +15,7 @@ public class ConvertToDTO implements IConvert<Property, PropertyDTO>{
             entry.getId(),
             entry.getDescription(),
             entry.getUserId(),
+            entry.getRegistryId(),
             entry.isActive()
         );
     }    

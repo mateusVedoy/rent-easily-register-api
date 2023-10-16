@@ -25,20 +25,24 @@ public class PropertyModel {
     private String description;
     @Column(name = "pro_active")
     private String active;
+    @Column(name = "pro_registryId")
+    private String registryId;
     @Column(name = "usr_code")
     private Long userId;
 
-    public PropertyModel(String description, Long userId) {
+    public PropertyModel(String description, Long userId, String registryId) {
         this.description = description;
         this.userId = userId;
+        this.registryId = registryId;
         this.active = "1";
     }
 
-    public PropertyModel(Long id, String description, Long userId, String active) {
+    public PropertyModel(Long id, String description, Long userId, String registryId, String active) {
         this.id = id;
         this.description = description;
         this.userId = userId;
         this.active = active;
+        this.registryId = registryId;
     }
 
     public String toString() {

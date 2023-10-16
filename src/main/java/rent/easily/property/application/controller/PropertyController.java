@@ -14,6 +14,7 @@ import jakarta.ws.rs.core.Response;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.application.useCase.CreateProperty;
 import rent.easily.property.application.useCase.UpdateProperty;
+import rent.easily.property.application.useCase.ValidateProperty;
 import rent.easily.property.domain.entity.Property;
 import rent.easily.property.infrastructure.database.PropertyModel;
 import rent.easily.property.infrastructure.database.PropertyRepository;
@@ -43,6 +44,8 @@ public class PropertyController {
     DeleteEntityById<Property, PropertyModel> deleteEntityById;
     @Inject
     UpdateProperty updateProperty;
+    @Inject
+    ValidateProperty validateProperty;
 
     @POST
     @Path("/create")
@@ -63,6 +66,15 @@ public class PropertyController {
     // TODO: listar todos imóveis do usuario
 
     // TODO: editar imovel
+
+    @POST
+    @Path("/validate/{identifier}/{response}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response validate(@PathParam("identifier") String identifier, @PathParam("response") String response) {
+        Long id = Long.parseLong(identifier);
+        APIResponse result = validateProperty.execute(id, response);
+        return Response.status(result.getStatus()).entity(result).build();
+    }
 
     @PATCH
     @Path("/update/{identifier}")

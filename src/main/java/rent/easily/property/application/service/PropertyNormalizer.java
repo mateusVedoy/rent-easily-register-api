@@ -24,7 +24,7 @@ public class PropertyNormalizer extends EntityNormalizer<PropertyDTO, PropertyMo
        if(isNull(model))
             throw new ValidationError(List.of(new BusinessException("There's no Property to given id", "Property.service.PropertyNormalize")));
         
-        Property property = new Property(id, setNonNull(entry.getDescription(), model.getDescription()), setNonNull(entry.getUserId(), model.getUserId()), setNonNull(setActive(entry.isActive()), model.getActive()));
+        Property property = new Property(id, setNonNull(entry.getDescription(), model.getDescription()), setNonNull(entry.getUserId(), model.getUserId()), setNonNull(entry.getRegistryId(), model.getRegistryId()), setNonNull(setActive(entry.isActive()), model.getActive()));
 
         model.setDescription(property.getDescription());
         model.setActive(setActive(property.isActive()));
