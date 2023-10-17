@@ -73,7 +73,7 @@
           <version>1.18.26</version>
       </dependency>
 
-    <!-- <dependency>
+    <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-smallrye-jwt</artifactId>
     </dependency>
@@ -81,7 +81,7 @@
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-oidc-token-propagation</artifactId>
-    </dependency> -->
+    </dependency>
   </dependencies>
   <build>
     <plugins>
