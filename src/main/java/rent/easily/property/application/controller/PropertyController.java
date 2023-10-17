@@ -1,5 +1,6 @@
 package rent.easily.property.application.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.DELETE;
@@ -14,7 +15,6 @@ import jakarta.ws.rs.core.Response;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.application.useCase.CreateProperty;
 import rent.easily.property.application.useCase.UpdateProperty;
-import rent.easily.property.application.useCase.ValidateProperty;
 import rent.easily.property.domain.entity.Property;
 import rent.easily.property.infrastructure.database.PropertyModel;
 import rent.easily.property.infrastructure.database.PropertyRepository;
@@ -44,11 +44,10 @@ public class PropertyController {
     DeleteEntityById<Property, PropertyModel> deleteEntityById;
     @Inject
     UpdateProperty updateProperty;
-    @Inject
-    ValidateProperty validateProperty;
 
     @POST
     @Path("/create")
+    @RolesAllowed({ "lessor" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(PropertyDTO dto) {
         APIResponse result = createEntity.execute(dto);
@@ -67,17 +66,9 @@ public class PropertyController {
 
     // TODO: editar imovel
 
-    @POST
-    @Path("/validate/{identifier}/{response}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response validate(@PathParam("identifier") String identifier, @PathParam("response") String response) {
-        Long id = Long.parseLong(identifier);
-        APIResponse result = validateProperty.execute(id, response);
-        return Response.status(result.getStatus()).entity(result).build();
-    }
-
     @PATCH
     @Path("/update/{identifier}")
+    @RolesAllowed({ "lessor" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response updateById(@PathParam("identifier") String identifier, PropertyDTO dto) {
         Long id = Long.parseLong(identifier);
@@ -90,12 +81,13 @@ public class PropertyController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
-        APIResponse result =  getEntityById.execute(id, repository, convertToDomain, convertToDTO);
+        APIResponse result = getEntityById.execute(id, repository, convertToDomain, convertToDTO);
         return Response.status(result.getStatus()).entity(result).build();
     }
 
     @DELETE
     @Path("/delete/id/{identifier}")
+    @RolesAllowed({ "lessor" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response deleteById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
