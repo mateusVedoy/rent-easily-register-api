@@ -9,8 +9,9 @@ public class UserDTO {
     private String CPF;
     private double income;
     private String registerType;
+    private String password;
 
-    public UserDTO(Long id, String fullName, String cpf, double income, String registerType) {
+    public UserDTO(Long id, String fullName, String cpf, double income, String password, String registerType) {
         this.id = id;
         this.fullName = fullName;
         this.CPF = cpf;

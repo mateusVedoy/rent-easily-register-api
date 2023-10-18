@@ -11,29 +11,15 @@ public class User extends Entity{
     private String CPF;
     private double income;
     private RegisterType type;
+    private String password;
 
-    public User(String fullName, String CPF, double income, RegisterType type) {
-        this.fullName = fullName;
-        this.CPF = CPF;
-        this.income = income;
-        this.type = type;
-        this.validate();
-    }
-
-    public User(String fullName, String CPF, double income, Long typeId) {
-        this.fullName = fullName;
-        this.CPF = CPF;
-        this.income = income;
-        this.type  = setType(typeId);
-        this.validate();
-    }
-
-    public User(Long id, String fullName, String CPF, double income, Long typeId) {
+    public User(Long id, String fullName, String CPF, double income, String password, Long typeId) {
         this.id = id;
         this.fullName = fullName;
         this.CPF = CPF;
         this.income = income;
         this.type = setType(typeId);
+        this.password = password; //futuramente criptografar
         this.validate();
     }
     

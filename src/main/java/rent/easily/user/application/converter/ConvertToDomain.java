@@ -13,7 +13,7 @@ public class ConvertToDomain implements IConvert<UserDTO, User>{
 
     @Override
     public User convert(UserDTO entry) throws ValidationError {
-        User user = new User(entry.getId(), entry.getFullName(), entry.getCPF(), entry.getIncome(), setRegisterType(entry.getRegisterType()));
+        User user = new User(entry.getId(), entry.getFullName(), entry.getCPF(), entry.getIncome(), entry.getPassword(), setRegisterType(entry.getRegisterType()));
         if(user.isValid())
             return user;
         throw new ValidationError(user.getErrors());

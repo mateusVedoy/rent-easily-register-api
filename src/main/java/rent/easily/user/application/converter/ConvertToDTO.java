@@ -13,7 +13,7 @@ public class ConvertToDTO implements IConvert<User, UserDTO>{
 
     @Override
     public UserDTO convert(User entry) throws ValidationError {
-        return new UserDTO(entry.getId(), entry.getFullName(), entry.getCPF(), entry.getIncome(), setRegisterType(entry.getType().getValue()));
+        return new UserDTO(entry.getId(), entry.getFullName(), entry.getCPF(), entry.getIncome(), entry.getPassword(), setRegisterType(entry.getType().getValue()));
     }
 
     private String setRegisterType(Long value) {

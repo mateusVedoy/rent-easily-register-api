@@ -25,24 +25,28 @@ public class UserModel {
     private String CPF;
     @Column(name = "usr_income")
     private double income;
+    @Column(name = "usr_password")
+    private String password;
     @Column(name = "rgt_code")
     private Long typeId;
 
     public UserModel(){}
 
-    public UserModel(String fullName, String cpf, double income, Long typeId) {
+    public UserModel(String fullName, String cpf, double income, String password, Long typeId) {
         this.fullName = fullName;
         this.CPF = cpf;
         this.income = income;
         this.typeId = typeId;
+        this.password = password;
     }
 
-    public UserModel(Long id, String fullName, String cpf, double income, Long typeId) {
+    public UserModel(Long id, String fullName, String cpf, double income, String password, Long typeId) {
         this.id = id;
         this.fullName = fullName;
         this.CPF = cpf;
         this.income = income;
         this.typeId = typeId;
+        this.password = password;
     }
 
     public String toString() {

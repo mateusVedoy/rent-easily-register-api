@@ -29,6 +29,7 @@ public class UserRepository extends Repository<User, UserModel> {
         return new UserModel(entity.getFullName(), 
         entity.getCPF(), 
         entity.getIncome(),
+        entity.getPassword(),
         entity.getType().getValue());
     }
 
@@ -36,7 +37,7 @@ public class UserRepository extends Repository<User, UserModel> {
     public List<User> convertToDomainList(List<UserModel> model) {
         List<User> users = new ArrayList<>();
         for(UserModel mdl: model) {
-            users.add(new User(mdl.getId(), mdl.getFullName(), mdl.getCPF(), mdl.getIncome(), mdl.getTypeId()));
+            users.add(new User(mdl.getId(), mdl.getFullName(), mdl.getCPF(), mdl.getIncome(), mdl.getPassword(), mdl.getTypeId()));
         }
         return users;
     }

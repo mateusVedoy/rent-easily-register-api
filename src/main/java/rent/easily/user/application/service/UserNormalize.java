@@ -31,7 +31,8 @@ public class UserNormalize extends EntityNormalizer<UserDTO, UserModel> {
             id, 
             setNonNull(entry.getFullName(), model.getFullName()), 
             setNonNull(entry.getCPF(), model.getCPF()),
-            setNonNull(entry.getIncome(), model.getIncome()), 
+            setNonNull(entry.getIncome(), model.getIncome()),
+            setNonNull(entry.getPassword(), model.getPassword()),
             setNonNull(setRegisterType(entry.getRegisterType()), model.getTypeId()));
 
         model.setFullName(newUser.getFullName());
