@@ -3,6 +3,7 @@ package rent.easily.user.application.converter;
 import jakarta.enterprise.context.ApplicationScoped;
 import rent.easily.shared.domain.exception.ValidationError;
 import rent.easily.shared.domain.port.IConvert;
+import rent.easily.user.application.dto.CredentialsDTO;
 import rent.easily.user.application.dto.RegisterTypeDTO;
 import rent.easily.user.application.dto.UserDTO;
 import rent.easily.user.domain.entity.RegisterType;
@@ -13,7 +14,8 @@ public class ConvertToDTO implements IConvert<User, UserDTO>{
 
     @Override
     public UserDTO convert(User entry) throws ValidationError {
-        return new UserDTO(entry.getId(), entry.getFullName(), entry.getCPF(), entry.getIncome(), entry.getPassword(), setRegisterType(entry.getType().getValue()));
+        CredentialsDTO credentialsDTO = new CredentialsDTO(entry.getCredentials().getMail(), entry.getCredentials().getPassword());
+        return new UserDTO(entry.getId(), entry.getFullName(), entry.getCPF(), entry.getIncome(), credentialsDTO, setRegisterType(entry.getType().getValue()));
     }
 
     private String setRegisterType(Long value) {

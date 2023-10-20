@@ -11,15 +11,15 @@ public class User extends Entity{
     private String CPF;
     private double income;
     private RegisterType type;
-    private String password;
+    private Credentials credentials;
 
-    public User(Long id, String fullName, String CPF, double income, String password, Long typeId) {
+    public User(Long id, String fullName, String CPF, double income, Credentials credentials, Long typeId) {
         this.id = id;
         this.fullName = fullName;
         this.CPF = CPF;
         this.income = income;
+        this.credentials = credentials;
         this.type = setType(typeId);
-        this.password = password; //futuramente criptografar
         this.validate();
     }
     
@@ -53,6 +53,8 @@ public class User extends Entity{
             addError("User income must to be greater than zero", "domain.User.income");
         if(!isTypeValid())
             addError("User type must to be LESSEE or LESSOR", "domain.User.type");
+        if(!this.credentials.isValid())
+            addErrors(this.credentials.getErrors());
     }
 
     private boolean isFullNameInvalid() {

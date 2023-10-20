@@ -1,5 +1,6 @@
 package rent.easily.user.application.controller;
 
+import jakarta.annotation.security.RolesAllowed;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.GET;
@@ -39,7 +40,7 @@ public class UserController {
     GetEntityById<UserDTO, User, UserModel> getEntityById;
     @Inject
     UpdateUser updateUser;
-    
+
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
@@ -48,8 +49,16 @@ public class UserController {
         return Response.status(result.getStatus()).entity(result).build();
     }
 
+    @POST
+    @Path("/find/credentials") //pegar query params
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getByCredentials(UserDTO dto) {
+        return null; //implementar
+    }
+
     @GET
     @Path("/find/all")
+    //@RolesAllowed({ "lesse", "lessor" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
         APIResponse result = getAllEntities.execute(repository, convertToDomain, convertToDTO);
@@ -58,6 +67,7 @@ public class UserController {
 
     @GET
     @Path("find/id/{identifier}")
+    @RolesAllowed({ "lesse", "lessor" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response getById(@PathParam("identifier") String identifier) {
         Long id = Long.parseLong(identifier);
@@ -67,6 +77,7 @@ public class UserController {
 
     @PATCH
     @Path("/update/id/{identifier}")
+    @RolesAllowed({ "lesse", "lessor" })
     @Produces(MediaType.APPLICATION_JSON_PATCH_JSON)
     public Response update(@PathParam("identifier") String identifier, UserDTO user) {
         Long id = Long.parseLong(identifier);
