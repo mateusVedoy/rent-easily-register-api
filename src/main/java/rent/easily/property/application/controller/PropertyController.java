@@ -15,10 +15,12 @@ import jakarta.ws.rs.core.Response;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.application.useCase.CreateProperty;
 import rent.easily.property.application.useCase.UpdateProperty;
+import rent.easily.property.application.useCase.ValidateProperty;
 import rent.easily.property.domain.entity.Property;
 import rent.easily.property.infrastructure.database.PropertyModel;
 import rent.easily.property.infrastructure.database.PropertyRepository;
 import rent.easily.shared.application.response.APIResponse;
+import rent.easily.shared.application.response.ResponseSuccess;
 import rent.easily.shared.application.useCase.DeleteEntityById;
 import rent.easily.shared.application.useCase.GetAllEntities;
 import rent.easily.shared.application.useCase.GetEntityById;
@@ -44,6 +46,8 @@ public class PropertyController {
     DeleteEntityById<Property, PropertyModel> deleteEntityById;
     @Inject
     UpdateProperty updateProperty;
+    @Inject
+    ValidateProperty validateProperty;
 
     @POST
     @Path("/create")
@@ -65,6 +69,14 @@ public class PropertyController {
     // TODO: listar todos imóveis do usuario
 
     // TODO: editar imovel
+
+    @POST
+    @Path("/validation/{propertyId}/{isValid}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response validate(@PathParam("propertyId") Long propertyId, @PathParam("isValid") String isValid) {
+        APIResponse response = validateProperty.execute(propertyId, isValid);
+        return Response.status(response.getStatus()).entity(response).build();
+    }
 
     @PATCH
     @Path("/update/{identifier}")

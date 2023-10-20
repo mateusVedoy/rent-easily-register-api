@@ -34,7 +34,7 @@ public class PropertyModel {
         this.description = description;
         this.userId = userId;
         this.registryId = registryId;
-        this.active = "1";
+        this.active = "0";
     }
 
     public PropertyModel(Long id, String description, Long userId, String registryId, String active) {
