@@ -27,6 +27,10 @@ public abstract class Entity {
         this.errors.add(new BusinessException(message, trace));
     }
 
+    public void addErrors(List<BusinessException> errors) {
+        this.errors.addAll(errors);
+    }
+
     public abstract void validate();
 
     protected <T> boolean isNull(T value) {
