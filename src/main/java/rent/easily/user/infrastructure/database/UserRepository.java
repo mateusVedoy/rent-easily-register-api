@@ -17,6 +17,11 @@ public class UserRepository extends Repository<User, UserModel> {
         return result > 0;
     }
 
+    public boolean existsUserByCredentials(String mail, String pass) {
+        Long result = count("mail = ?1 AND password = ?2", mail, pass);
+        return result > 0;
+    }
+
     public User getUserByCPF(String cpf) {
         PanacheQuery<UserModel> result = find("CPF = ?1", cpf);
         UserModel model = result.firstResult();

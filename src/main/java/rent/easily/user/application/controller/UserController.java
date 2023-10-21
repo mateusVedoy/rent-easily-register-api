@@ -17,6 +17,7 @@ import rent.easily.shared.application.useCase.GetEntityById;
 import rent.easily.shared.domain.port.IConvert;
 import rent.easily.user.application.dto.UserDTO;
 import rent.easily.user.application.useCase.CreateUser;
+import rent.easily.user.application.useCase.GetUserByCredentials;
 import rent.easily.user.application.useCase.UpdateUser;
 import rent.easily.user.domain.entity.User;
 import rent.easily.user.infrastructure.database.UserModel;
@@ -40,6 +41,8 @@ public class UserController {
     GetEntityById<UserDTO, User, UserModel> getEntityById;
     @Inject
     UpdateUser updateUser;
+    @Inject
+    GetUserByCredentials getUserByCredentials;
 
     @POST
     @Path("/create")
@@ -50,10 +53,11 @@ public class UserController {
     }
 
     @POST
-    @Path("/find/credentials") //pegar query params
+    @Path("/find/credentials")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByCredentials(UserDTO dto) {
-        return null; //implementar
+        APIResponse result = getUserByCredentials.execute(dto);
+       return Response.status(200).entity(result).build();
     }
 
     @GET
