@@ -1,5 +1,8 @@
 package rent.easily.shared.application.useCase;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jakarta.enterprise.context.Dependent;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.response.ResponseError;
@@ -14,19 +17,22 @@ import rent.easily.shared.infrastructure.Repository;
 @Dependent
 public class CreateEntity<T1, T2, T3> {
 
-
     public APIResponse execute(
-        T1 dto, 
-        Repository<T2, T3> repository,
-        IConvert<T1, T2> convertToDomain,
-        IConvert<T2, T1> convertToDTO,
-        ICriteria<T2> specification) {
+            T1 dto,
+            Repository<T2, T3> repository,
+            IConvert<T1, T2> convertToDomain,
+            IConvert<T2, T1> convertToDTO,
+            ICriteria<T2> specification) {
         try {
             T2 entity = convertToDomain.convert(dto);
-            if(hasSpecification(specification))
+            if (hasSpecification(specification))
                 specification.validate(entity);
-            repository.save(entity);
-            return new ResponseSuccess<>(201, StatusMessage.CREATED.getValue());
+            List<T2> results = repository.save(entity);
+            List<T1> dtos = new ArrayList<>();
+            for (T2 result : results) {
+                dtos.add(convertToDTO.convert(result));
+            }
+            return new ResponseSuccess<>(201, StatusMessage.CREATED.getValue(), dtos);
         } catch (ValidationError validationException) {
             return new ResponseError(400, StatusMessage.ERROR.getValue(), validationException.getErrors());
         } catch (Exception exception) {

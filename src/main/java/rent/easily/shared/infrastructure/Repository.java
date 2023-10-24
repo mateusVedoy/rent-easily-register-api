@@ -8,9 +8,10 @@ import rent.easily.shared.domain.port.IRepository;
 public abstract class Repository<T1, T2> implements PanacheRepository<T2>, IRepository<T1, T2> {
 
     @Override
-    public void save(T1 entity) {
+    public List<T1> save(T1 entity) {
         T2 model = convertToModel(entity);
         persist(model); //depois add uma validação que salvou realmente com isPersistent
+        return convertToDomainList(List.of(model));
     }
 
     @Override
