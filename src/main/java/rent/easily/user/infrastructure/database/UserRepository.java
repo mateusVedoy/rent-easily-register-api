@@ -22,6 +22,14 @@ public class UserRepository extends Repository<User, UserModel> {
         return result > 0;
     }
 
+    public User getUserByCredentials(String mail, String pass) {
+        PanacheQuery<UserModel> result = find("mail = ?1 AND password = ?2", mail, pass);
+        UserModel model = result.firstResult();
+        if(model != null)
+            return convertToDomainList(List.of(model)).stream().findFirst().get();
+        return null;
+    }
+
     public User getUserByCPF(String cpf) {
         PanacheQuery<UserModel> result = find("CPF = ?1", cpf);
         UserModel model = result.firstResult();

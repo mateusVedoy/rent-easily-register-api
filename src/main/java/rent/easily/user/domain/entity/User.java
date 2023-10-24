@@ -83,7 +83,8 @@ public class User extends Entity{
     }
     
     public String toString() {
-        return "FullName: "+this.getFullName()+
+        return "Id: "+this.getId() +
+        "FullName: "+this.getFullName()+
         ", CPF: "+this.getCPF()+
         ", Income: "+this.getIncome()+
         ", type: "+this.getType();
