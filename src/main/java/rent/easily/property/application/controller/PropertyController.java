@@ -14,6 +14,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.application.useCase.CreateProperty;
+import rent.easily.property.application.useCase.SendPropertyToValidation;
 import rent.easily.property.application.useCase.UpdateProperty;
 import rent.easily.property.application.useCase.ValidateProperty;
 import rent.easily.property.domain.entity.Property;
@@ -48,14 +49,26 @@ public class PropertyController {
     UpdateProperty updateProperty;
     @Inject
     ValidateProperty validateProperty;
+    @Inject
+    SendPropertyToValidation sendPropertyToValidation;
 
     @POST
     @Path("/create")
-    @RolesAllowed({ "lessor" })
+    // @RolesAllowed({ "lessor" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(PropertyDTO dto) {
-        APIResponse result = createEntity.execute(dto);
+        APIResponse<PropertyDTO> result = createEntity.execute(dto);
+        if (result.isSuccess()) {
+            PropertyDTO prop = extractDtoFromResponse(result);
+            sendPropertyToValidation.send(prop); // melhorar a verificação de sucesso no processo aqui
+        }
         return Response.status(result.getStatus()).entity(result).build();
+    }
+
+    private PropertyDTO extractDtoFromResponse(APIResponse<PropertyDTO> response) {
+        if (response instanceof ResponseSuccess)
+            return response.content().stream().findFirst().get();
+        return null;
     }
 
     @GET
@@ -74,6 +87,7 @@ public class PropertyController {
     @Path("/validation/{propertyId}/{isValid}")
     @Produces(MediaType.APPLICATION_JSON)
     public Response validate(@PathParam("propertyId") Long propertyId, @PathParam("isValid") String isValid) {
+        System.out.println("New property validation result for propertyId: " + propertyId);
         APIResponse response = validateProperty.execute(propertyId, isValid);
         return Response.status(response.getStatus()).entity(response).build();
     }

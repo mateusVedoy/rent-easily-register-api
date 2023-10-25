@@ -17,4 +17,8 @@ public abstract class APIResponse<T> {
     }
 
     public abstract List<T> content();
+
+    public boolean isSuccess() {
+        return this.status >= 200 && this.status < 206;
+    }
 }
