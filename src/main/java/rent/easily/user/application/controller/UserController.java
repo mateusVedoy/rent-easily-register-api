@@ -57,6 +57,7 @@ public class UserController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response getByCredentials(UserDTO dto) {
         APIResponse result = getUserByCredentials.execute(dto);
+        System.out.println("New user credentials request");
        return Response.status(200).entity(result).build();
     }
 
