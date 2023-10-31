@@ -29,20 +29,24 @@ public class PropertyModel {
     private String registryId;
     @Column(name = "usr_code")
     private Long userId;
+    @Column(name = "adr_code")
+    private String address;
 
-    public PropertyModel(String description, Long userId, String registryId) {
+    public PropertyModel(String description, Long userId, String registryId, String address) {
         this.description = description;
         this.userId = userId;
         this.registryId = registryId;
+        this.address = address;
         this.active = "0";
     }
 
-    public PropertyModel(Long id, String description, Long userId, String registryId, String active) {
+    public PropertyModel(Long id, String description, Long userId, String registryId, String active, String address) {
         this.id = id;
         this.description = description;
         this.userId = userId;
         this.active = active;
         this.registryId = registryId;
+        this.address = address;
     }
 
     public String toString() {

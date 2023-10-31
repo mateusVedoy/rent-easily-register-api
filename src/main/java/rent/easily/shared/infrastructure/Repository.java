@@ -10,7 +10,8 @@ public abstract class Repository<T1, T2> implements PanacheRepository<T2>, IRepo
     @Override
     public List<T1> save(T1 entity) {
         T2 model = convertToModel(entity);
-        persist(model); //depois add uma validação que salvou realmente com isPersistent
+        if(!isPersistent(model))
+            persist(model); //depois add uma validação que salvou realmente com isPersistent
         return convertToDomainList(List.of(model));
     }
 

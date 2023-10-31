@@ -14,14 +14,16 @@ public class Property extends Entity {
     private Long userId;
     private boolean active;
     private String registryId;
+    private Address address;
 
 
-    public Property(Long id, String description, Long userId, String registryId, String active) {
+    public Property(Long id, String description, Long userId, String registryId, String active, Address address) {
         this.id = id;
         this.description = description;
         this.userId = userId;
         this.active = setActive(active);
         this.registryId = registryId;
+        this.address = address;
         validate();
     }
 
@@ -29,10 +31,11 @@ public class Property extends Entity {
         return active.equals(ACTIVE_TRUE) ? true : false;
     }
 
-    public Property(String description, Long userId, String registryId) {
+    public Property(String description, Long userId, String registryId, Address address) {
         this.description = description;
         this.userId = userId;
         this.registryId = registryId;
+        this.address = address;
         validate();
     }
 
@@ -44,5 +47,7 @@ public class Property extends Entity {
             addError("User is mandatory", "domain.Property.userId");
         if (isNull(this.registryId))
             addError("Registry Id is mandatory to validate property", "domain.Property.registryId");
+        if (!this.address.isValid())
+            addErrors(this.address.getErrors());
     }
 }
