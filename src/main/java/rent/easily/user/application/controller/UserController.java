@@ -58,7 +58,7 @@ public class UserController {
     public Response getByCredentials(UserDTO dto) {
         APIResponse result = getUserByCredentials.execute(dto);
         System.out.println("New user credentials request");
-       return Response.status(200).entity(result).build();
+       return Response.status(result.getStatus()).entity(result).build();
     }
 
     @GET
