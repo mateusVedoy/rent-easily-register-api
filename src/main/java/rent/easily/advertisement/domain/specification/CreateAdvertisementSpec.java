@@ -19,12 +19,11 @@ public class CreateAdvertisementSpec implements ICriteria<Advertisement>{
     @Inject
     PropertyRepository propertyRepository;
 
-    public CreateAdvertisementSpec() {
-        this.errors = new ArrayList<>();
-    }
+    public CreateAdvertisementSpec() {}
 
     @Override
     public void validate(Advertisement entry) throws ValidationError {
+        this.errors = new ArrayList<>();
         if(!isTherePropertyForGivenId(entry.getPropertyId()))
             errors.add(new BusinessException("There's no Property for given propertyId", "domain.Advertisement.propertyId"));
         if(!isRentAmountValid(entry.getRentAmount()))
