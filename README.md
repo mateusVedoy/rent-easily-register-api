@@ -85,10 +85,15 @@ Para rodar todas as verificações de qualidade e falhar o build se qualquer vio
 ./mvnw validate
 ```
 ### Rodar apenas a verificação do Checkstyle
+```bash
 ./mvnw checkstyle:check
+```
 
 ### Rodar apenas a verificação do PMD
+
+```bash
 ./mvnw pmd:check
+```
 
 ## Gerando Relatórios (HTML)
 
