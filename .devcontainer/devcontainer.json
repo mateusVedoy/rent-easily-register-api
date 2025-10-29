@@ -17,6 +17,7 @@
 			"extensions": [
 				//"redhat.vscode-quarkus",
 				"vscjava.vscode-java-pack",
+				"chuckjonas.apex-pmd",
 				"cweijan.vscode-mysql-client2",
 				"GitHub.copilot",
 				"Equinusocio.vsc-material-theme-icons",
