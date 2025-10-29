@@ -74,3 +74,31 @@ Easily start your Reactive RESTful Web Services
 ### Architecture
 This project uses the Hexagonal concept and separated by modules as bellow
 ![architecture](/src//main//resources//images/rent-easily-arch.png)
+
+## Code Quality (Static Analysis)
+
+Este projeto usa Checkstyle (para padronização de estilo de código) e PMD (para análise estática de bugs) para garantir a qualidade do código.
+
+Para rodar todas as verificações de qualidade e falhar o build se qualquer violação for encontrada (recomendado antes de fazer um push), use a fase validate:
+
+```bash
+./mvnw validate
+```
+### Rodar apenas a verificação do Checkstyle
+./mvnw checkstyle:check
+
+### Rodar apenas a verificação do PMD
+./mvnw pmd:check
+
+## Gerando Relatórios (HTML)
+
+Para gerar relatórios HTML amigáveis com todas as violações sem falhar o build, use o comando site:
+
+```bash
+./mvnw site
+```
+
+Após a execução, você pode abrir os relatórios no seu navegador:
+
+- Relatório Checkstyle: ```target/site/checkstyle.html```
+- Relatório PMD: ```target/site/pmd.html```
