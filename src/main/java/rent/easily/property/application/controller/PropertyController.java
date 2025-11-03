@@ -54,7 +54,7 @@ public class PropertyController {
 
     @POST
     @Path("/create")
-    @RolesAllowed({ "lessor" })
+    // @RolesAllowed({ "lessor" })
     @Produces(MediaType.APPLICATION_JSON)
     public Response create(PropertyDTO dto) {
         APIResponse<PropertyDTO> result = createEntity.execute(dto);

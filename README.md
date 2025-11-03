@@ -107,3 +107,19 @@ Após a execução, você pode abrir os relatórios no seu navegador:
 
 - Relatório Checkstyle: ```target/site/checkstyle.html```
 - Relatório PMD: ```target/site/pmd.html```
+
+## Tests
+
+### Unit tests
+
+```bash
+
+./mvnw test
+```
+
+### Unit test + Integration test
+
+```bash
+
+./mvnw verify
+```

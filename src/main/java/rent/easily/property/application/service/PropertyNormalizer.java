@@ -4,7 +4,6 @@ import java.util.List;
 
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import rent.easily.property.application.dto.PropertyAddressDTO;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.domain.entity.Address;
 import rent.easily.property.domain.entity.Property;

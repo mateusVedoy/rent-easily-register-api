@@ -7,12 +7,10 @@ import jakarta.inject.Inject;
 import rent.easily.property.application.dto.PropertyDTO;
 import rent.easily.property.application.dto.PropertyValidationDTO;
 import rent.easily.property.domain.port.IHttp;
-import rent.easily.property.infrastructure.database.PropertyRepository;
 import rent.easily.shared.application.response.APIResponse;
 import rent.easily.shared.application.response.ResponseError;
 import rent.easily.shared.application.response.ResponseSuccess;
 import rent.easily.shared.application.response.StatusMessage;
-import rent.easily.shared.domain.exception.BusinessException;
 import rent.easily.user.domain.entity.User;
 import rent.easily.user.infrastructure.database.UserRepository;
 

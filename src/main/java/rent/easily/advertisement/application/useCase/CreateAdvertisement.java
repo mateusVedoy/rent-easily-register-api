@@ -4,7 +4,6 @@ import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import rent.easily.advertisement.application.dto.AdvertisementDTO;
 import rent.easily.advertisement.domain.entity.Advertisement;
-import rent.easily.advertisement.domain.specification.CreateAdvertisementSpec;
 import rent.easily.advertisement.infrastructure.database.AdvertisementModel;
 import rent.easily.advertisement.infrastructure.database.AdvertisementRepository;
 import rent.easily.shared.application.response.APIResponse;

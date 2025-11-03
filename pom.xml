@@ -13,7 +13,7 @@
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>3.3.2</quarkus.platform.version>
-    <skipITs>true</skipITs>
+    <skipITs>false</skipITs>
     <surefire-plugin.version>3.1.2</surefire-plugin.version>
   </properties>
   <dependencyManagement>
@@ -130,25 +130,28 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
+
       <plugin>
-        <artifactId>maven-failsafe-plugin</artifactId>
-        <version>${surefire-plugin.version}</version>
-        <executions>
-          <execution>
-            <goals>
-              <goal>integration-test</goal>
-              <goal>verify</goal>
-            </goals>
-            <configuration>
-              <systemPropertyVariables>
-                <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                <maven.home>${maven.home}</maven.home>
-              </systemPropertyVariables>
-            </configuration>
-          </execution>
-        </executions>
+          <artifactId>maven-failsafe-plugin</artifactId>
+          <version>${surefire-plugin.version}</version>
+          <executions>
+              <execution>
+                  <goals>
+                      <goal>integration-test</goal>
+                      <goal>verify</goal>
+                  </goals>
+                  <configuration>
+                      <systemPropertyVariables>
+                          <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                          <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                          <maven.home>${maven.home}</maven.home>
+                      </systemPropertyVariables>
+                  </configuration>
+              </execution>
+          </executions>
       </plugin>
+
+
       <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-checkstyle-plugin</artifactId>
@@ -180,17 +183,26 @@
           </executions>
       </plugin>
 
-      <plugin>
+     <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-pmd-plugin</artifactId>
           <version>3.24.0</version>
           
           <configuration>
               <targetJdk>${maven.compiler.release}</targetJdk>
-              
               <linkXRef>false</linkXRef>
               <format>xml</format>
               <printFailingErrors>true</printFailingErrors>
+
+              <!-- ⚙️ Apenas classes dentro deste pacote serão analisadas -->
+              <includes>
+                  <include>**/rent/easily/advertisement/**/*.java</include>
+              </includes>
+
+              <!-- ⚙️ (opcional) Exclui o restante -->
+              <excludes>
+                  <exclude>**/rent/easily/**/*.java</exclude>
+              </excludes>
               
               <rulesets>
                   <ruleset>category/java/bestpractices.xml</ruleset>
@@ -213,6 +225,7 @@
               </execution>
           </executions>
       </plugin>
+
 
     </plugins>
   </build>

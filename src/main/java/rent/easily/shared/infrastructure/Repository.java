@@ -1,13 +1,14 @@
 package rent.easily.shared.infrastructure;
 
 import java.util.List;
-
+import jakarta.transaction.Transactional;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import rent.easily.shared.domain.port.IRepository;
 
 public abstract class Repository<T1, T2> implements PanacheRepository<T2>, IRepository<T1, T2> {
 
     @Override
+    @Transactional
     public List<T1> save(T1 entity) {
         T2 model = convertToModel(entity);
         if(!isPersistent(model))
@@ -30,6 +31,7 @@ public abstract class Repository<T1, T2> implements PanacheRepository<T2>, IRepo
     }
 
     @Override
+    @Transactional
     public void edit(T2 model) { //estudar forma melhor de editar
         persist(model);
     }
