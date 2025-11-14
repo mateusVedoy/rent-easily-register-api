@@ -56,7 +56,7 @@ class AdvertisementRepositoryTest {
 
     @Test
     @DisplayName("existsById: Deve retornar true quando count > 0")
-    void testExistsById_ShouldReturnTrue_WhenCountIsPositive() {
+    void shouldReturnTrueWhenCountIsGreatherThanZero() {
  
         Long idToTest = 1L;
         doReturn(1L).when(repository).count("id = ?1", idToTest);
@@ -68,7 +68,7 @@ class AdvertisementRepositoryTest {
 
     @Test
     @DisplayName("existsById: Deve retornar false quando count == 0")
-    void testExistsById_ShouldReturnFalse_WhenCountIsZero() {
+    void shouldReturnFalseWhenCountIsZero() {
        
         Long idToTest = 2L;
         doReturn(0L).when(repository).count("id = ?1", idToTest);
