@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -66,7 +67,8 @@ public class CreateAdvertisementTest {
     }
 
     @Test
-    void testExecute_Success() throws ValidationError {
+    @DisplayName("Deve criar um anúncio com sucesso")
+    void shouldCreateAdvertisementSuccessfully() throws ValidationError {
         
         when(convertToDomain.convert(requestDTO)).thenReturn(advertisement);
 
@@ -96,7 +98,8 @@ public class CreateAdvertisementTest {
     }
 
     @Test
-    void testExecute_ValidationFailure() throws ValidationError {
+    @DisplayName("Deve gerar erro de validação da entidade Anúncio")
+    void shouldFailureInValidationConvertingAdvertisement() throws ValidationError {
 
         List<BusinessException> errors = List.of(new BusinessException("Property ID is mandatory", "Advertisement.propertyId"));
         ValidationError validationError = new ValidationError(errors); 
@@ -125,7 +128,8 @@ public class CreateAdvertisementTest {
     }
 
     @Test
-    void testExecute_RepositoryFailure() throws ValidationError {
+    @DisplayName("Deve tratar erro de repositório")
+    void shouldTreatRepositoryFailure() throws ValidationError {
 
         RuntimeException dbException = new RuntimeException("Database connection failed");
 
@@ -154,8 +158,9 @@ public class CreateAdvertisementTest {
         verify(convertToDTO, never()).convert(any());
     }
 
-     @Test
-    void testExecute_Success_WithNullSpecification() throws ValidationError {
+    @Test
+    @DisplayName("Deve criar anúncio mesmo sem especificações")
+    void shouldCreateAdvertisementWithoutSpecification() throws ValidationError {
        
         createAdvertisement.spec = null;
 
