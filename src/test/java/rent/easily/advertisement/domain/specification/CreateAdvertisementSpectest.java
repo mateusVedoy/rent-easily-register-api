@@ -31,8 +31,8 @@ class CreateAdvertisementSpecTest {
     PropertyRepository propertyRepository;
 
     @Test
-    @DisplayName("Deve validar com sucesso (Caminho Feliz)")
-    void testValidate_HappyPath_ShouldNotThrowException() {
+    @DisplayName("Não deve subir exceção nas validações das especificações")
+    void shouldNotThrowErrorOnSpecification() {
        
         Long propertyId = 1L;
         double rentAmount = 1500.0;
@@ -47,7 +47,7 @@ class CreateAdvertisementSpecTest {
 
     @Test
     @DisplayName("Deve lançar ValidationError se o PropertyId não existir")
-    void testValidate_PropertyNotFound_ShouldThrowValidationError() {
+    void shouldThrowErrorWhenPropertyIdDoesntExists() {
        
         Long propertyId = 99L; 
         double rentAmount = 1500.0;
@@ -70,7 +70,7 @@ class CreateAdvertisementSpecTest {
 
     @Test
     @DisplayName("Deve lançar ValidationError se o RentAmount for zero")
-    void testValidate_InvalidRentAmount_Zero_ShouldThrowValidationError() {
+    void shouldThrownErrorWhenRentAmountIsZero() {
     
         Long propertyId = 1L;
         double rentAmount = 0.0; 
@@ -90,7 +90,7 @@ class CreateAdvertisementSpecTest {
 
     @Test
     @DisplayName("Deve lançar ValidationError se o RentAmount for negativo")
-    void testValidate_InvalidRentAmount_Negative_ShouldThrowValidationError() {
+    void shouldThrownErrorWhenRentAmountIsNegative() {
   
         Long propertyId = 1L;
         double rentAmount = -100.0; 
@@ -108,7 +108,7 @@ class CreateAdvertisementSpecTest {
 
     @Test
     @DisplayName("Deve lançar ValidationError com DOIS erros (PropertyId e RentAmount)")
-    void testValidate_PropertyNotFoundAndInvalidRent_ShouldThrowWithTwoErrors() {
+    void shouldThrowErrorWithTwoValidationPropertyIdAndRentAmount() {
       
         Long propertyId = 99L;    
         double rentAmount = 0.0; 
