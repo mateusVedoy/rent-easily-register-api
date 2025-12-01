@@ -17,31 +17,36 @@ public class CreateAdvertisementSpec implements ICriteria<Advertisement>{
     private List<BusinessException> errors;
 
     @Inject
-    PropertyRepository propertyRepository;
+    private final PropertyRepository propertyRepo;
 
-    public CreateAdvertisementSpec() {}
+    public CreateAdvertisementSpec(final PropertyRepository propertyRepo) {
+        this.propertyRepo = propertyRepo;
+    }
 
     @Override
-    public void validate(Advertisement entry) throws ValidationError {
+    public void validate(final Advertisement entry) throws ValidationError {
         this.errors = new ArrayList<>();
-        if(!isTherePropertyForGivenId(entry.getPropertyId()))
+        if(!isTherePropertyForGivenId(entry.getPropertyId())) {
             errors.add(new BusinessException("There's no Property for given propertyId", "domain.Advertisement.propertyId"));
-        if(!isRentAmountValid(entry.getRentAmount()))
+        }
+        if(!isRentAmountValid(entry.getRentAmount())) {
             errors.add(new BusinessException("Rent amount must to be greater than zero", "domain.Advertisement.rentAmount"));
+        }
 
-        if(hasErrors())
+        if(hasErrors()){
             throw new ValidationError(errors);
+        }
     }
 
     private boolean hasErrors() {
-        return errors.size() > 0;
+        return !errors.isEmpty();
     }
     
-    private boolean isTherePropertyForGivenId(Long id) {
-       return propertyRepository.existsById(id);
+    private boolean isTherePropertyForGivenId(final Long propertyId) {
+       return propertyRepo.existsById(propertyId);
     }
 
-    private boolean isRentAmountValid(double rent) {
+    private boolean isRentAmountValid(final double rent) {
         return rent > 0;
     }
 }

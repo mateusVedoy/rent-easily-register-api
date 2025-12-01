@@ -20,7 +20,7 @@ public class AdvertisementModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "add_code")
-    private Long id;
+    private Long advertisementId;
     @Column(name = "add_active")
     private String active;
     @Column(name = "add_rentamount")
@@ -32,12 +32,11 @@ public class AdvertisementModel {
     @Column(name = "pro_code")
     private Long propertyId;
 
-    public AdvertisementModel (
-        double rentAmount,
-        String information,
-        LocalDate postedAt,
-        Long propertyId
-    ) {
+    public AdvertisementModel(
+            final double rentAmount,
+            final String information,
+            final LocalDate postedAt,
+            final Long propertyId) {
         this.active = "1";
         this.rentAmount = rentAmount;
         this.information = information;
@@ -45,15 +44,14 @@ public class AdvertisementModel {
         this.postedAt = postedAt;
     }
 
-    public AdvertisementModel (
-        Long id,
-        String active,
-        double rentAmount,
-        String information,
-        LocalDate postedAt,
-        Long propertyId
-    ) {
-        this.id = id;
+    public AdvertisementModel(
+            final Long advertisementId,
+            final String active,
+            final double rentAmount,
+            final String information,
+            final LocalDate postedAt,
+            final Long propertyId) {
+        this.advertisementId = advertisementId;
         this.active = active;
         this.rentAmount = rentAmount;
         this.information = information;

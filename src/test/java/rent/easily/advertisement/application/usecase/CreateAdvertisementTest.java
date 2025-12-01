@@ -1,10 +1,9 @@
-package rent.easily.advertisement.application.useCase;
+package rent.easily.advertisement.application.usecase;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +32,6 @@ import rent.easily.shared.domain.port.ICriteria;
 @ExtendWith(MockitoExtension.class)
 public class CreateAdvertisementTest {
 
-    @InjectMocks
     private CreateAdvertisement createAdvertisement;
 
     @Spy
@@ -64,6 +62,8 @@ public class CreateAdvertisementTest {
         savedAdvertisement = new Advertisement(1L, "1", 1500.0, "Apartamento novo", LocalDate.now(), 1L); //
 
         responseDTO = new AdvertisementDTO(1L, true, 1500.0, "Apartamento novo", 1L);
+
+        createAdvertisement = new CreateAdvertisement(repository, convertToDTO, convertToDomain, createEntity, spec);
     }
 
     @Test
@@ -88,8 +88,9 @@ public class CreateAdvertisementTest {
         assertInstanceOf(ResponseSuccess.class, response);
         ResponseSuccess<AdvertisementDTO> successResponse = (ResponseSuccess<AdvertisementDTO>) response;
         assertEquals(1, successResponse.content().size());
+        assertNotNull(successResponse.content().get(0));
         assertEquals(responseDTO, successResponse.content().get(0));
-        assertEquals(1L, successResponse.content().get(0).getId());
+        assertEquals(1L, successResponse.content().get(0).getAdvertisementId());
 
         verify(convertToDomain, times(1)).convert(requestDTO);
         verify(spec, times(1)).validate(advertisement);
@@ -162,7 +163,7 @@ public class CreateAdvertisementTest {
     @DisplayName("Deve criar anúncio mesmo sem especificações")
     void shouldCreateAdvertisementWithoutSpecification() throws ValidationError {
        
-        createAdvertisement.spec = null;
+        createAdvertisement = new CreateAdvertisement(repository, convertToDTO, convertToDomain, createEntity, null);
 
         when(convertToDomain.convert(requestDTO)).thenReturn(advertisement);
 

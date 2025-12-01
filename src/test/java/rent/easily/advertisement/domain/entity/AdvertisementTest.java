@@ -42,7 +42,7 @@ public class AdvertisementTest {
         LocalDate postedDate = LocalDate.of(2024, 5, 10);
         Advertisement ad = new Advertisement(5L, "1", 2000.0, "Casa ampla", postedDate, 15L);
 
-        assertEquals(5L, ad.getId());
+        assertEquals(5L, ad.getAdvertisementId());
         assertEquals(postedDate, ad.getPostedAt());
         assertTrue(ad.isActive());
         assertEquals(2000.0, ad.getRentAmount());

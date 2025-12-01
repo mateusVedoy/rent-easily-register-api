@@ -35,7 +35,7 @@ class AdvertisementRepositoryTest {
             this.active = active;
         }
 
-        @Override public Long getId() { return this.id; }
+        @Override public Long getAdvertisementId() { return this.id; }
         @Override public String getActive() { return this.active; }
     }
 
@@ -59,7 +59,7 @@ class AdvertisementRepositoryTest {
     void shouldReturnTrueWhenCountIsGreatherThanZero() {
  
         Long idToTest = 1L;
-        doReturn(1L).when(repository).count("id = ?1", idToTest);
+        doReturn(1L).when(repository).count("advertisementId = ?1", idToTest);
 
         boolean result = repository.existsById(idToTest);
 
@@ -71,7 +71,7 @@ class AdvertisementRepositoryTest {
     void shouldReturnFalseWhenCountIsZero() {
        
         Long idToTest = 2L;
-        doReturn(0L).when(repository).count("id = ?1", idToTest);
+        doReturn(0L).when(repository).count("advertisementId = ?1", idToTest);
 
         boolean result = repository.existsById(idToTest);
 
@@ -102,7 +102,7 @@ class AdvertisementRepositoryTest {
         assertEquals(1, domainList.size());
 
         Advertisement resultDomain = domainList.get(0);
-        assertEquals(modelEntity.getId(), resultDomain.getId());
+        assertEquals(modelEntity.getAdvertisementId(), resultDomain.getAdvertisementId());
         assertEquals(modelEntity.getRentAmount(), resultDomain.getRentAmount());
         assertTrue(resultDomain.isActive()); 
     }

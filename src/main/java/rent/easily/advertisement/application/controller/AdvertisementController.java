@@ -9,7 +9,7 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import rent.easily.advertisement.application.dto.AdvertisementDTO;
-import rent.easily.advertisement.application.useCase.CreateAdvertisement;
+import rent.easily.advertisement.application.usecase.CreateAdvertisement;
 import rent.easily.advertisement.domain.entity.Advertisement;
 import rent.easily.advertisement.infrastructure.database.AdvertisementModel;
 import rent.easily.advertisement.infrastructure.database.AdvertisementRepository;
@@ -21,21 +21,34 @@ import rent.easily.shared.domain.port.IConvert;
 @Transactional
 public class AdvertisementController {
     @Inject
-    AdvertisementRepository repository;
+    private final AdvertisementRepository repository;
     @Inject
-    IConvert<Advertisement, AdvertisementDTO> convertToDTO;
+    private final IConvert<Advertisement, AdvertisementDTO> convertToDTO;
     @Inject
-    IConvert<AdvertisementDTO, Advertisement> convertToDomain;
+    private final IConvert<AdvertisementDTO, Advertisement> convertToDomain;
     @Inject
-    CreateAdvertisement createAdvertisement;
+    private final CreateAdvertisement createAdv;
     @Inject
-    GetAllEntities<AdvertisementDTO, Advertisement, AdvertisementModel> getAllEntities;
+    private final GetAllEntities<AdvertisementDTO, Advertisement, AdvertisementModel> getAllEntities;
+
+    public AdvertisementController(
+        final AdvertisementRepository repository, 
+        final IConvert<Advertisement, AdvertisementDTO> convertToDTO, 
+        final IConvert<AdvertisementDTO, Advertisement> convertToDomain, 
+        final CreateAdvertisement createAdv, 
+        final GetAllEntities<AdvertisementDTO, Advertisement, AdvertisementModel> getAllEntities) {
+        this.repository = repository;
+        this.convertToDTO = convertToDTO;
+        this.convertToDomain = convertToDomain;
+        this.createAdv = createAdv;
+        this.getAllEntities = getAllEntities;
+    }
 
     @POST
     @Path("/create")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response create(AdvertisementDTO dto) {
-        APIResponse result = createAdvertisement.execute(dto);
+    public Response create(final AdvertisementDTO dto) {
+        final APIResponse result = createAdv.execute(dto);
         return Response.status(result.getStatus()).entity(result).build();
     }
 
@@ -43,7 +56,7 @@ public class AdvertisementController {
     @Path("/find/all")
     @Produces(MediaType.APPLICATION_JSON)
     public Response getAll() {
-        APIResponse result = getAllEntities.execute(repository,convertToDomain, convertToDTO);
+        final APIResponse result = getAllEntities.execute(repository,convertToDomain, convertToDTO);
         return Response.status(result.getStatus()).entity(result).build();
     }
 }

@@ -193,16 +193,13 @@
               <linkXRef>false</linkXRef>
               <format>xml</format>
               <printFailingErrors>true</printFailingErrors>
+              <failOnViolation>true</failOnViolation>
+              <failurePriority>5</failurePriority>
 
               <!-- ⚙️ Apenas classes dentro deste pacote serão analisadas -->
               <includes>
                   <include>**/rent/easily/advertisement/**/*.java</include>
               </includes>
-
-              <!-- ⚙️ (opcional) Exclui o restante -->
-              <excludes>
-                  <exclude>**/rent/easily/**/*.java</exclude>
-              </excludes>
               
               <rulesets>
                   <ruleset>category/java/bestpractices.xml</ruleset>
