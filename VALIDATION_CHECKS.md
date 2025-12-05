@@ -62,3 +62,8 @@ A ruleset `bestpractices` do PMD geralmente sinaliza o uso de `System.out.printl
     ./mvnw validate
     ```
 4.  **Resultado esperado**: O build irá falhar com uma mensagem do `maven-pmd-plugin` apontando o uso de `System.out.println`.
+
+
+### Extra
+
+Em caso de erro ao executar ```./mvnw test``` por falta de permissão, execute o comando ```sudo chown -R vscode:vscode target```

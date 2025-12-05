@@ -112,9 +112,19 @@ Após a execução, você pode abrir os relatórios no seu navegador:
 
 ### Unit tests
 
+executa todos os tipos de testes
 ```bash
 
 ./mvnw test
+```
+
+ou
+
+executa apenas os unitários
+```bash
+
+./mvnw test -Dcheckstyle.skip=true -Dpmd.skip=true
+
 ```
 
 ### Unit test + Integration test
@@ -122,4 +132,14 @@ Após a execução, você pode abrir os relatórios no seu navegador:
 ```bash
 
 ./mvnw verify
+```
+
+ou 
+
+Apenas os testes funcionais
+
+```bash
+
+./mvnw verify -Dcheckstyle.skip=true -Dpmd.skip=true
+
 ```
